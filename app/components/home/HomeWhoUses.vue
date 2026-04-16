@@ -243,7 +243,7 @@ const nicheBorderClasses = [
   'border-blue-500',
   'border-red-500',
   'border-pink-500',
-  'border-gray-900',
+  'border-ink',
   'border-green-500',
   'border-indigo-500',
   'border-orange-500',
@@ -275,24 +275,27 @@ const niches = [
   'Small Business',
   'E-commerce',
 ]
+
+const mobileCreators = creators.slice(0, 12)
+const mobileBrands = brands.slice(0, 16)
 </script>
 
 <template>
-  <section class="bg-[#f7f7f7] py-16 sm:py-20">
+  <section class="bg-canvas-subtle py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         Who&apos;s Using LinkDM?
       </h2>
 
   
-      <p class="mt-12 text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="mt-12 text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         Creators
       </p>
-      <div class="mt-5 flex flex-wrap justify-center gap-2 sm:gap-3">
+      <div class="mt-5 flex flex-wrap justify-center gap-2 sm:hidden">
         <div
-          v-for="c in creators"
-          :key="c.handle"
-          class="inline-flex max-w-full items-center gap-2 rounded-full border border-gray-200 bg-white py-1.5 pl-1.5 pr-3 shadow-sm"
+          v-for="c in mobileCreators"
+          :key="'m-' + c.handle"
+          class="inline-flex min-w-0 basis-[calc(50%-0.25rem)] items-center gap-2 rounded-full border border-edge bg-surface py-1.5 pl-1.5 pr-3 shadow-sm"
         >
           <img
             :src="c.image"
@@ -302,7 +305,32 @@ const niches = [
             height="36"
             loading="lazy"
           />
-          <span class="truncate text-sm font-medium text-gray-900">{{ c.handle }}</span>
+          <span class="min-w-0 truncate text-sm font-medium text-ink">{{ c.handle }}</span>
+          <img
+            :src="VERIFIED_SRC"
+            alt="Verified"
+            class="h-4 w-4 shrink-0"
+            width="16"
+            height="16"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="mt-5 hidden flex-wrap justify-center gap-2 sm:flex sm:gap-3">
+        <div
+          v-for="c in creators"
+          :key="c.handle"
+          class="inline-flex max-w-full items-center gap-2 rounded-full border border-edge bg-surface py-1.5 pl-1.5 pr-3 shadow-sm"
+        >
+          <img
+            :src="c.image"
+            alt=""
+            class="h-9 w-9 shrink-0 rounded-full object-cover"
+            width="36"
+            height="36"
+            loading="lazy"
+          />
+          <span class="truncate text-sm font-medium text-ink">{{ c.handle }}</span>
           <img
             :src="VERIFIED_SRC"
             alt="Verified"
@@ -315,14 +343,14 @@ const niches = [
       </div>
 
      
-      <p class="mt-14 text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="mt-14 text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         Brands
       </p>
-      <div class="mt-5 flex flex-wrap justify-center gap-2 sm:gap-3">
+      <div class="mt-5 flex flex-wrap justify-center gap-2 sm:hidden">
         <div
-          v-for="b in brands"
-          :key="b.handle"
-          class="inline-flex max-w-full items-center gap-2 rounded-full border border-gray-200 bg-white py-1.5 pl-1.5 pr-3 shadow-sm"
+          v-for="b in mobileBrands"
+          :key="'m-' + b.handle"
+          class="inline-flex max-w-full items-center gap-2 rounded-full border border-edge bg-surface py-1.5 pl-1.5 pr-3 shadow-sm"
         >
           <img
             :src="b.image"
@@ -332,7 +360,32 @@ const niches = [
             height="36"
             loading="lazy"
           />
-          <span class="truncate text-sm font-medium text-gray-900">{{ b.handle }}</span>
+          <span class="truncate text-sm font-medium text-ink">{{ b.handle }}</span>
+          <img
+            :src="VERIFIED_SRC"
+            alt="Verified"
+            class="h-4 w-4 shrink-0"
+            width="16"
+            height="16"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="mt-5 hidden flex-wrap justify-center gap-2 sm:flex sm:gap-3">
+        <div
+          v-for="b in brands"
+          :key="b.handle"
+          class="inline-flex max-w-full items-center gap-2 rounded-full border border-edge bg-surface py-1.5 pl-1.5 pr-3 shadow-sm"
+        >
+          <img
+            :src="b.image"
+            alt=""
+            class="h-9 w-9 shrink-0 rounded-full object-cover"
+            width="36"
+            height="36"
+            loading="lazy"
+          />
+          <span class="truncate text-sm font-medium text-ink">{{ b.handle }}</span>
           <img
             :src="VERIFIED_SRC"
             alt="Verified"
@@ -345,7 +398,7 @@ const niches = [
       </div>
 
       
-      <p class="mt-14 text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="mt-14 text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         Niches
       </p>
       <div class="mt-5 flex flex-wrap justify-center gap-2 sm:gap-3">
@@ -353,7 +406,7 @@ const niches = [
           v-for="(label, i) in niches"
           :key="'n-' + i"
           type="button"
-          class="rounded-full border border-solid bg-white px-4 py-2 text-sm font-medium text-gray-900 transition hover:border-dashed hover:bg-gray-50"
+          class="rounded-full border border-solid bg-surface px-4 py-2 text-sm font-medium text-ink transition hover:border-dashed hover:bg-surface-elevated"
           :class="nicheBorderClasses[i % nicheBorderClasses.length]"
         >
           {{ label }}

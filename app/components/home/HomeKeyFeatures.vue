@@ -183,23 +183,23 @@ const features: Feature[] = [
 
 
 function iconBoxClass(tier: Tier) {
-  if (tier === 'basic') return 'bg-[#1877F2] text-white'
-  if (tier === 'pro') return 'bg-[#F7A833] text-white'
-  return 'bg-[#6B7280] text-white'
+  if (tier === 'basic') return 'bg-tier-basic text-white'
+  if (tier === 'pro') return 'bg-tier-pro text-white'
+  return 'bg-tier-plat text-white'
 }
 </script>
 
 <template>
-  <section class="bg-white pb-16 sm:pb-20">
+  <section class="bg-canvas pb-16 sm:pb-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
       <template v-if="showHeader">
-        <p class="text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+        <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
           Key features
         </p>
-        <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Unlock The Full Potential
         </h2>
-        <p class="mx-auto mt-4  text-center text-base text-gray-600">
+        <p class="mx-auto mt-4 text-center text-base text-ink-muted">
           Dive deep into LinkDM&apos;s capabilities with these standout features, each designed to
           enhance your experience and streamline your tasks. Discover what sets us apart.
         </p>
@@ -212,7 +212,7 @@ function iconBoxClass(tier: Tier) {
         <div
           v-for="(f, i) in features"
           :key="i"
-          class="flex gap-4 rounded-xl border border-gray-200 bg-white p-4 transition-colors duration-200 hover:border-blue-600 sm:p-5"
+          class="flex gap-4 rounded-xl border border-edge bg-surface p-4 transition-colors duration-200 hover:border-accent-border sm:p-5"
         >
           <div
             class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg"
@@ -222,7 +222,7 @@ function iconBoxClass(tier: Tier) {
           </div>
           <div class="min-w-0 flex-1">
             <div class="flex flex-wrap items-center gap-2">
-              <h3 class="font-bold text-gray-900">
+              <h3 class="font-bold text-ink">
                 {{ f.title }}
               </h3>
               <span
@@ -233,12 +233,12 @@ function iconBoxClass(tier: Tier) {
               </span>
               <span
                 v-if="f.tier === 'platinum'"
-                class="rounded-full bg-gray-500 px-2 py-0.5 text-xs font-semibold text-white"
+                class="rounded-full bg-tier-plat px-2 py-0.5 text-xs font-semibold text-white"
               >
                 Platinum
               </span>
             </div>
-            <p class="mt-1 text-sm leading-relaxed text-gray-600">
+            <p class="mt-1 text-sm leading-relaxed text-ink-muted">
               {{ f.description }}
             </p>
           </div>

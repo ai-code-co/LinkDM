@@ -83,15 +83,15 @@ const blobClass = ['bg-pink-100/70', 'bg-violet-100/70', 'bg-rose-100/70', 'bg-p
 </script>
 
 <template>
-  <section class="bg-white py-16 sm:py-20">
+  <section class="bg-canvas py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <p class="text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         {{ eyebrow }}
       </p>
-      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         {{ title }}
       </h2>
-      <p class="mx-auto mt-4  text-center text-base text-gray-600">
+      <p class="mx-auto mt-4 text-center text-base text-ink-muted">
         {{ subtitle }}
       </p>
 
@@ -129,12 +129,12 @@ const blobClass = ['bg-pink-100/70', 'bg-violet-100/70', 'bg-rose-100/70', 'bg-p
               {{ row.badge }}
             </span>
             <h3
-              class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"
+              class="text-2xl font-bold tracking-tight text-ink sm:text-3xl"
               :class="row.badge ? 'mt-3' : ''"
             >
               {{ row.title }}
             </h3>
-            <p class="mt-4 text-base leading-relaxed text-gray-600">
+            <p class="mt-4 text-base leading-relaxed text-ink-muted">
               {{ row.description }}
             </p>
           </div>

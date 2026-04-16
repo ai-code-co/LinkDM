@@ -4,19 +4,19 @@ const LOGO_SRC =
 </script>
 
 <template>
-  <section class="bg-white py-12 sm:py-16">
+  <section class="bg-canvas py-12 sm:py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
       <article
-        class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md transition-colors duration-200 hover:border-[#1487fa] sm:p-10 lg:flex lg:items-center lg:gap-12 lg:p-12"
+        class="rounded-2xl border border-edge bg-surface p-8 shadow-md transition-colors duration-200 hover:border-brand sm:p-10 lg:flex lg:items-center lg:gap-12 lg:p-12"
       >
         <div class="flex-1">
-          <p class="text-xs font-semibold uppercase tracking-wider text-[#1487fa]">
+          <p class="text-xs font-semibold uppercase tracking-wider text-eyebrow">
             Badged partner
           </p>
-          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 class="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             LinkDM is a Meta Business Partner
           </h2>
-          <p class="mt-4 max-w-2xl text-base leading-relaxed text-gray-900">
+          <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink">
             We&apos;ve been a certified Meta Business Partner since 2021, offering peace of mind
             to our 48,000+ users by ensuring complete compliance with automation standards across
             both Instagram and Facebook.

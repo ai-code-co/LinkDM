@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+
+const user = useSupabaseUser()
+const isLoggedIn = computed(() => Boolean(user.value))
 
 const heroImages = [
   'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/66804502db07272fcbbec138_dfc58951fc0b9ceeac9b3b05b902f114_the_broadmoor_house.avif',
@@ -57,49 +60,70 @@ const stats = [
 </script>
 
 <template>
-  <section class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-8 lg:py-16">
-      <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
-        
-        <div class="max-w-xl lg:max-w-none">
+  <section class="bg-canvas">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-8 lg:py-16">
+      <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+        <div class="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-none lg:text-left">
           <h1
-            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-[2.75rem] lg:leading-tight"
+            class="text-[2.5rem] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-4xl sm:leading-tight lg:text-[2.75rem]"
           >
             Reply to Instagram Comments with a DM, Instantly!
           </h1>
-          <p class="mt-3 text-lg font-medium text-[#1487fa] sm:text-xl">
+          <p class="mt-3 text-xl font-semibold text-brand sm:text-xl">
             The #1 AutoDM Platform for Creators
           </p>
 
-          <ul class="mt-6 space-y-3 text-base text-gray-800">
-            <li class="flex gap-3">
+          <div
+            class="mx-auto mt-5 w-full max-w-md lg:hidden"
+            aria-live="polite"
+          >
+            <div class="relative aspect-square w-full overflow-hidden">
+              <Transition name="hero-fade" mode="out-in">
+                <img
+                  :key="heroImageIndex"
+                  :src="heroImages[heroImageIndex]"
+                  alt="LinkDM — creators using automated Instagram DMs"
+                  class="h-full w-full object-contain"
+                  width="600"
+                  height="600"
+                  loading="eager"
+                  decoding="async"
+                />
+              </Transition>
+            </div>
+          </div>
+
+          <ul class="mx-auto mt-5 max-w-sm space-y-2.5 text-center text-[1.125rem] text-ink-secondary lg:mx-0 lg:mt-6 lg:max-w-none lg:space-y-3 lg:text-left lg:text-base">
+            <li class="flex justify-center gap-3 lg:justify-start">
               <span class="shrink-0" aria-hidden="true">✅</span>
               <span>Meta Business Partner</span>
             </li>
-            <li class="flex gap-3">
-              <span class="shrink-0 text-blue-600" aria-hidden="true">📘</span>
+            <li class="flex justify-center gap-3 lg:justify-start">
+              <span class="shrink-0 text-link" aria-hidden="true">📘</span>
               <span>Works with Facebook</span>
             </li>
-            <li class="flex gap-3">
+            <li class="flex justify-center gap-3 lg:justify-start">
               <span class="shrink-0" aria-hidden="true">🎉</span>
               <span>Used by 48,000+ creators, brands and agencies!</span>
             </li>
-            <li class="flex gap-3">
+            <li class="flex justify-center gap-3 lg:justify-start">
               <span class="shrink-0" aria-hidden="true">💯 </span>
               <span>Get started in seconds</span>
             </li>
           </ul>
 
-          <NuxtLink
-            to="/signup"
-            class="mt-8 inline-block rounded-lg bg-[#1487fa] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700"
-          >
-            Create Account — It&apos;s Free!
-          </NuxtLink>
-          <p class="mt-2 text-sm text-gray-500">No credit card required</p>
+          <template v-if="!isLoggedIn">
+            <NuxtLink
+              to="/signup"
+              class="mt-6 inline-block w-full max-w-sm rounded-lg bg-brand px-6 py-3 text-center text-xl font-bold text-on-brand shadow-sm transition hover:bg-brand-hover lg:mt-8 lg:w-auto lg:max-w-none lg:text-base lg:font-semibold"
+            >
+              Create Account — It&apos;s Free!
+            </NuxtLink>
+            <p class="mt-2 text-center text-sm text-ink-subtle lg:text-left">No credit card required</p>
+          </template>
 
           <div
-            class="inline-block rounded-lg bg-white py-4 pl-0 pr-4 sm:py-5 sm:pr-5"
+            class="inline-block rounded-lg bg-surface py-4 pl-0 pr-4 sm:py-5 sm:pr-5"
           >
             <img
               :src="META_BADGE"
@@ -112,9 +136,8 @@ const stats = [
           </div>
         </div>
 
-      
         <div
-          class="mx-auto w-full max-w-lg lg:mx-0 lg:ml-auto"
+          class="mx-auto hidden w-full max-w-lg lg:mx-0 lg:ml-auto lg:block"
           aria-live="polite"
         >
           <div class="relative aspect-square w-full overflow-hidden rounded-2xl">
@@ -134,9 +157,8 @@ const stats = [
         </div>
       </div>
 
-   
       <div
-        class="mt-4 grid grid-cols-2 gap-8  pt-12 lg:mt-8 lg:grid-cols-4 lg:gap-6"
+        class="mt-4 grid grid-cols-2 gap-8 pt-12 lg:mt-8 lg:grid-cols-4 lg:gap-6"
       >
         <div
           v-for="item in stats"
@@ -145,7 +167,7 @@ const stats = [
         >
           <div
             v-if="item.stars"
-            class="mb-2 flex justify-center gap-0.5 text-amber-400"
+            class="mb-2 flex justify-center gap-0.5 text-pro-amber"
             aria-hidden="true"
           >
             <span v-for="s in 5" :key="s" class="text-lg leading-none">★</span>
@@ -161,8 +183,8 @@ const stats = [
               decoding="async"
             />
           </div>
-          <p class="text-2xl font-bold text-gray-900 sm:text-3xl">{{ item.value }}</p>
-          <p class="mt-1 text-sm text-gray-600">{{ item.label }}</p>
+          <p class="text-2xl font-bold text-ink sm:text-3xl">{{ item.value }}</p>
+          <p class="mt-1 text-sm text-ink-muted">{{ item.label }}</p>
         </div>
       </div>
     </div>

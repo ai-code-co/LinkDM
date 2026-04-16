@@ -2,7 +2,16 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
-  // Colocate source with app/app.vue (pages, layouts, components live under app/)
-  srcDir: 'app/'
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
+  css: ['~/assets/css/themes.css'],
+
+  srcDir: 'app/',
+  supabase: {
+    redirect: false,
+    types: false,
+    cookieOptions: {
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    },
+  },
 })

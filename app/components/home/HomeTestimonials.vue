@@ -127,22 +127,22 @@ const list = computed(() => {
 
 function avatarClass(t: Testimonial) {
   if (t.avatarIsLogo) {
-    return 'h-12 w-12 shrink-0 rounded-lg border border-gray-100 bg-white object-contain p-1.5'
+    return 'h-12 w-12 shrink-0 rounded-lg border border-edge bg-surface object-contain p-1.5'
   }
   return 'h-12 w-12 shrink-0 rounded-full object-cover'
 }
 </script>
 
 <template>
-  <section class="bg-gray-50 py-16 sm:py-20">
+  <section class="bg-canvas-muted py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <p class="text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         {{ eyebrowText }}
       </p>
-      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         {{ titleText }}
       </h2>
-      <p class="mx-auto mt-4 max-w-3xl text-center text-base text-gray-900">
+      <p class="mx-auto mt-4 max-w-3xl text-center text-base text-ink">
         {{ subtitleText }}
       </p>
 
@@ -150,12 +150,12 @@ function avatarClass(t: Testimonial) {
         <article
           v-for="(t, i) in list"
           :key="i"
-          class="relative flex flex-col rounded-2xl bg-white p-6 shadow-sm sm:p-7"
+          class="relative flex flex-col rounded-2xl bg-surface p-6 shadow-sm sm:p-7"
         >
-          <div class="flex gap-0.5 text-amber-400" aria-label="5 out of 5 stars">
+          <div class="flex gap-0.5 text-pro-amber" aria-label="5 out of 5 stars">
             <span v-for="s in 5" :key="s" aria-hidden="true">★</span>
           </div>
-          <p class="mt-4 text-[15px] leading-relaxed text-gray-900">
+          <p class="mt-4 text-[15px] leading-relaxed text-ink">
             {{ t.quote }}
           </p>
           <div class="mt-6 flex items-end justify-between gap-4">
@@ -169,13 +169,13 @@ function avatarClass(t: Testimonial) {
                 loading="lazy"
               />
               <div class="min-w-0">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-ink">
                   {{ t.handle }}
                 </p>
-                <p class="text-sm text-gray-900">
+                <p class="text-sm text-ink">
                   {{ t.role }}
                 </p>
-                <p class="text-sm font-medium text-[#1487fa]">
+                <p class="text-sm font-medium text-brand">
                   {{ t.followers }}
                 </p>
               </div>
@@ -197,7 +197,7 @@ function avatarClass(t: Testimonial) {
           :href="ctaHref"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex rounded-lg border border-gray-300 bg-white px-6 py-2.5 text-base font-medium text-gray-900 shadow-sm transition hover:border-gray-400 hover:bg-gray-50"
+          class="inline-flex rounded-lg border border-edge-strong bg-surface px-6 py-2.5 text-base font-medium text-ink shadow-sm transition hover:border-edge hover:bg-surface-elevated"
         >
           {{ ctaText }}
         </a>

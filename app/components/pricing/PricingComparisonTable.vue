@@ -57,7 +57,6 @@ function isText(row: Row, tier: 'free' | 'pro' | 'platinum') {
   return row[tier] === 'text'
 }
 
-
 const yesIconClass =
   'inline-flex size-5 items-center justify-center rounded bg-[#4ADE80] text-[11px] font-bold leading-none text-white'
 
@@ -65,30 +64,30 @@ const noIconClass = 'inline-block text-base leading-none'
 </script>
 
 <template>
-  <section id="plan-comparison" class="bg-white py-16 sm:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <p class="text-center text-xs font-semibold uppercase tracking-wider text-blue-600">
+  <section id="plan-comparison" class="bg-canvas py-10 sm:py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <p class="text-center text-xs font-semibold uppercase tracking-wider text-link">
         Feature breakdown
       </p>
-      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="mt-2.5 text-center text-2xl font-bold tracking-tight text-ink sm:text-3xl">
         Plan Comparison
       </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-center text-base text-gray-600">
+      <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-ink-muted sm:text-base">
         Find the plan that&apos;s right for you.
       </p>
 
-      <div class="mt-12 overflow-x-auto rounded-xl border border-sky-100 shadow-sm">
-        <table class="w-full min-w-[720px] border-collapse text-left text-sm">
+      <div class="mt-8 overflow-x-auto rounded-xl border border-table-line shadow-sm sm:mt-10">
+        <table class="w-full min-w-[640px] border-collapse text-left text-xs sm:text-sm">
           <thead>
-            <tr class="border-b border-sky-100 bg-sky-50/70">
-              <th scope="col" class="px-4 py-4 font-bold text-gray-900 sm:px-6">Features</th>
-              <th scope="col" class="px-4 py-4 text-center font-bold text-gray-900 sm:px-6">
+            <tr class="border-b border-table-line bg-table-head">
+              <th scope="col" class="px-3 py-3.5 font-bold text-ink sm:px-5">Features</th>
+              <th scope="col" class="px-3 py-3.5 text-center font-bold text-ink sm:px-5">
                 Free
               </th>
-              <th scope="col" class="px-4 py-4 text-center font-bold text-gray-900 sm:px-6">
+              <th scope="col" class="px-3 py-3.5 text-center font-bold text-ink sm:px-5">
                 Pro
               </th>
-              <th scope="col" class="px-4 py-4 text-center font-bold text-gray-900 sm:px-6">
+              <th scope="col" class="px-3 py-3.5 text-center font-bold text-ink sm:px-5">
                 Platinum+
               </th>
             </tr>
@@ -97,16 +96,16 @@ const noIconClass = 'inline-block text-base leading-none'
             <tr
               v-for="row in rows"
               :key="row.feature"
-              class="border-b border-sky-100 bg-white"
+              class="border-b border-table-line bg-surface"
             >
               <th
                 scope="row"
-                class="px-4 py-3.5 font-medium text-gray-900 sm:px-6"
+                class="px-3 py-3 font-medium text-ink sm:px-5 sm:py-3.5"
               >
                 {{ row.feature }}
               </th>
-              <td class="px-4 py-3.5 text-center sm:px-6">
-                <span v-if="isText(row, 'free')" class="font-medium text-gray-800">{{
+              <td class="px-3 py-3 text-center sm:px-5 sm:py-3.5">
+                <span v-if="isText(row, 'free')" class="font-medium text-ink-secondary">{{
                   textCell(row, 'free')
                 }}</span>
                 <span v-else-if="isCheck(row, 'free')" :class="yesIconClass" aria-label="Included"
@@ -116,8 +115,8 @@ const noIconClass = 'inline-block text-base leading-none'
                   >❌</span
                 >
               </td>
-              <td class="px-4 py-3.5 text-center sm:px-6">
-                <span v-if="isText(row, 'pro')" class="font-medium text-gray-800">{{
+              <td class="px-3 py-3 text-center sm:px-5 sm:py-3.5">
+                <span v-if="isText(row, 'pro')" class="font-medium text-ink-secondary">{{
                   textCell(row, 'pro')
                 }}</span>
                 <span v-else-if="isCheck(row, 'pro')" :class="yesIconClass" aria-label="Included"
@@ -127,8 +126,8 @@ const noIconClass = 'inline-block text-base leading-none'
                   >❌</span
                 >
               </td>
-              <td class="px-4 py-3.5 text-center sm:px-6">
-                <span v-if="isText(row, 'platinum')" class="font-medium text-gray-800">{{
+              <td class="px-3 py-3 text-center sm:px-5 sm:py-3.5">
+                <span v-if="isText(row, 'platinum')" class="font-medium text-ink-secondary">{{
                   textCell(row, 'platinum')
                 }}</span>
                 <span v-else-if="isCheck(row, 'platinum')" :class="yesIconClass" aria-label="Included"

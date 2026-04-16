@@ -54,19 +54,19 @@ const platinumPrice = computed(() =>
 </script>
 
 <template>
-  <section class="bg-white pb-16 sm:pb-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <div class="mb-8 flex justify-center sm:mb-10">
+  <section class="bg-canvas pb-10 sm:pb-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="mb-6 flex justify-center sm:mb-8">
         <a
           href="#plan-comparison"
-          class="text-sm font-semibold text-[#1484fa] underline decoration-blue-600 underline-offset-4 hover:text-blue-700"
+          class="text-sm font-semibold text-brand underline decoration-link underline-offset-4 hover:text-link-hover"
         >
           View plan comparison
         </a>
       </div>
 
       <div
-        class="mx-auto mb-10 flex max-w-md justify-center rounded-full border border-gray-200 bg-gray-100/80 p-1 sm:mb-12"
+        class="mx-auto mb-8 flex max-w-md justify-center rounded-full border border-edge bg-plan-toggle-bg p-1 sm:mb-10"
         role="tablist"
         aria-label="Billing period"
       >
@@ -74,11 +74,11 @@ const platinumPrice = computed(() =>
           type="button"
           role="tab"
           :aria-selected="billing === 'monthly'"
-          class="flex-1 rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-6"
+          class="flex-1 rounded-full px-3 py-2 text-sm font-semibold transition sm:px-5"
           :class="
             billing === 'monthly'
-              ? 'bg-[#1487fa] text-white shadow-sm'
-              : 'text-gray-700 hover:text-gray-900'
+              ? 'bg-brand text-on-brand shadow-sm'
+              : 'text-ink-muted hover:text-ink'
           "
           @click="billing = 'monthly'"
         >
@@ -88,11 +88,11 @@ const platinumPrice = computed(() =>
           type="button"
           role="tab"
           :aria-selected="billing === 'yearly'"
-          class="flex-1 rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-6"
+          class="flex-1 rounded-full px-3 py-2 text-sm font-semibold transition sm:px-5"
           :class="
             billing === 'yearly'
-              ? 'bg-blue-600 text-white shadow-sm'
-              : 'text-gray-700 hover:text-gray-900'
+              ? 'bg-brand text-on-brand shadow-sm'
+              : 'text-ink-muted hover:text-ink'
           "
           @click="billing = 'yearly'"
         >
@@ -100,26 +100,25 @@ const platinumPrice = computed(() =>
         </button>
       </div>
 
-      <div class="grid gap-6 lg:grid-cols-3 lg:items-stretch lg:gap-6">
-        
+      <div class="grid gap-4 md:grid-cols-2 md:items-stretch lg:grid-cols-3 lg:gap-5">
         <div
-          class="flex flex-col rounded-2xl border-2 border-sky-300 bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(14,165,233,0.12),0_24px_60px_-8px_rgba(14,165,233,0.18),0_40px_80px_-12px_rgba(14,165,233,0.1)] sm:p-8"
+          class="flex flex-col rounded-2xl border-2 border-plan-free-border bg-surface p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(14,165,233,0.12),0_24px_60px_-8px_rgba(14,165,233,0.18),0_40px_80px_-12px_rgba(14,165,233,0.1)] sm:p-6"
         >
-          <h2 class="text-xl font-bold text-[#1487fa]">Free</h2>
-          <div class="mt-4">
-            <span class="text-4xl font-bold tracking-tight text-gray-900">$0</span>
-            <p class="mt-1 text-sm font-medium text-gray-500">Free</p>
+          <h2 class="text-lg font-bold text-plan-free-title sm:text-xl">Free</h2>
+          <div class="mt-3">
+            <span class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">$0</span>
+            <p class="mt-1 text-sm font-medium text-ink-subtle">Free</p>
           </div>
-          <p class="mt-4 text-sm leading-relaxed text-gray-600">
-            Connect <strong class="text-gray-900">1 Instagram Account</strong> and send up to
-            <strong class="text-gray-900">1,000 DMs</strong> per month
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+            Connect <strong class="text-ink">1 Instagram Account</strong> and send up to
+            <strong class="text-ink">1,000 DMs</strong> per month
           </p>
-          <hr class="mt-6 border-t border-sky-100" />
-          <p class="mt-6 text-xs font-bold uppercase tracking-wide text-gray-900">Free includes:</p>
-          <ul class="mt-3 flex-1 space-y-3 text-sm text-gray-700">
+          <hr class="mt-5 border-t border-plan-free-hr" />
+          <p class="mt-5 text-xs font-bold uppercase tracking-wide text-ink">Free includes:</p>
+          <ul class="mt-3 flex-1 space-y-2.5 text-sm text-ink-muted">
             <li v-for="f in freeFeatures" :key="f" class="flex gap-3">
               <span
-                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white"
+                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-[10px] font-bold text-on-brand"
                 aria-hidden="true"
               >✓</span>
               <span>{{ f }}</span>
@@ -127,47 +126,46 @@ const platinumPrice = computed(() =>
           </ul>
           <NuxtLink
             to="/signup"
-            class="mt-8 block w-full rounded-xl bg-blue-600 py-3.5 text-center text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
+            class="mt-6 block w-full rounded-xl bg-brand py-3 text-center text-sm font-bold text-on-brand shadow-sm transition hover:bg-brand-hover"
           >
             Get Started for Free
           </NuxtLink>
         </div>
 
-        
         <div
-          class="flex flex-col rounded-2xl border-2 border-amber-400 bg-amber-50 p-6 shadow-md transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(245,158,11,0.15),0_24px_60px_-8px_rgba(245,158,11,0.22),0_40px_80px_-12px_rgba(245,158,11,0.12)] sm:p-8"
+          class="flex flex-col rounded-2xl border-2 border-plan-pro-border bg-plan-pro-bg p-5 shadow-md transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(245,158,11,0.15),0_24px_60px_-8px_rgba(245,158,11,0.22),0_40px_80px_-12px_rgba(245,158,11,0.12)] sm:p-6"
         >
           <div class="flex items-center justify-between gap-2">
-            <h2 class="text-xl font-bold text-amber-600">Pro</h2>
+            <h2 class="text-lg font-bold text-amber-600 sm:text-xl">Pro</h2>
             <span
-              class="shrink-0 rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
+              class="shrink-0 rounded-full bg-pro-amber px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
             >
               Popular
             </span>
           </div>
-          <div class="mt-4">
-            <span class="text-4xl font-bold tracking-tight text-gray-900">{{ proPrice.amount }}</span>
-            <span v-if="proPrice.period" class="ml-1 text-xl font-semibold text-gray-800">
+          <div class="mt-3">
+            <span class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">{{ proPrice.amount }}</span>
+            <span v-if="proPrice.period" class="ml-1 text-xl font-semibold text-ink-secondary">
               {{ proPrice.period }}
             </span>
-            <p v-if="proPrice.badge" class="mt-1 text-sm font-semibold text-green-600">
+            <p v-if="proPrice.badge" class="mt-1 text-sm font-semibold text-success">
               {{ proPrice.badge }}
             </p>
-            <p class="mt-1 text-sm font-medium text-gray-500">{{ proPrice.sub }}</p>
+            <p class="mt-1 text-sm font-medium text-ink-subtle">{{ proPrice.sub }}</p>
           </div>
-          <p class="mt-4 text-sm leading-relaxed text-gray-600">
-            Connect up to <strong class="text-gray-900">3 Instagram Accounts</strong> &amp; send up to
-            <strong class="text-gray-900">25,000 DMs</strong> per month
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+            Connect up to <strong class="text-ink">3 Instagram Accounts</strong> &amp; send up to
+            <strong class="text-ink">25,000 DMs</strong> per month
             <template v-if="billing === 'yearly'"> per account / per month</template>
           </p>
-          <hr class="mt-6 border-t border-amber-100" />
-          <p class="mt-6 text-xs font-bold uppercase tracking-wide text-gray-900">
+          <hr class="mt-5 border-t border-plan-pro-hr" />
+          <p class="mt-5 text-xs font-bold uppercase tracking-wide text-ink">
             Everything in Free, plus:
           </p>
-          <ul class="mt-3 flex-1 space-y-3 text-sm text-gray-700">
+          <ul class="mt-3 flex-1 space-y-2.5 text-sm text-ink-muted">
             <li v-for="f in proExtraFeatures" :key="f" class="flex gap-3">
               <span
-                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white"
+                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-pro-amber text-[10px] font-bold text-white"
                 aria-hidden="true"
               >✓</span>
               <span>{{ f }}</span>
@@ -175,42 +173,41 @@ const platinumPrice = computed(() =>
           </ul>
           <NuxtLink
             to="/signup"
-            class="mt-8 block w-full rounded-xl bg-amber-400 py-3.5 text-center text-sm font-bold text-gray-900 shadow-sm transition hover:bg-amber-500"
+            class="mt-6 block w-full rounded-xl bg-amber-400 py-3 text-center text-sm font-bold text-ink shadow-sm transition hover:bg-amber-500"
           >
             Upgrade to Pro
           </NuxtLink>
         </div>
 
-      
         <div
-          class="flex flex-col rounded-2xl border-2 border-gray-300 bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(15,23,42,0.06),0_24px_60px_-8px_rgba(15,23,42,0.1),0_40px_80px_-12px_rgba(15,23,42,0.08)] sm:p-8"
+          class="flex flex-col rounded-2xl border-2 border-plan-plat-border bg-surface p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_8px_30px_-4px_rgba(15,23,42,0.06),0_24px_60px_-8px_rgba(15,23,42,0.1),0_40px_80px_-12px_rgba(15,23,42,0.08)] sm:p-6"
         >
-          <h2 class="text-xl font-bold text-gray-600">Platinum+</h2>
-          <div class="mt-4">
-            <span class="text-4xl font-bold tracking-tight text-gray-900">{{
+          <h2 class="text-lg font-bold text-ink-subtle sm:text-xl">Platinum+</h2>
+          <div class="mt-3">
+            <span class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">{{
               platinumPrice.amount
             }}</span>
-            <span v-if="platinumPrice.period" class="ml-1 text-xl font-semibold text-gray-800">
+            <span v-if="platinumPrice.period" class="ml-1 text-xl font-semibold text-ink-secondary">
               {{ platinumPrice.period }}
             </span>
-            <p v-if="platinumPrice.badge" class="mt-1 text-sm font-semibold text-green-600">
+            <p v-if="platinumPrice.badge" class="mt-1 text-sm font-semibold text-success">
               {{ platinumPrice.badge }}
             </p>
-            <p class="mt-1 text-sm font-medium text-gray-500">{{ platinumPrice.sub }}</p>
+            <p class="mt-1 text-sm font-medium text-ink-subtle">{{ platinumPrice.sub }}</p>
           </div>
-          <p class="mt-4 text-sm leading-relaxed text-gray-600">
-            Connect up to <strong class="text-gray-900">10 Instagram Accounts</strong> &amp; send up to
-            <strong class="text-gray-900">300,000 DMs</strong> per month
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+            Connect up to <strong class="text-ink">10 Instagram Accounts</strong> &amp; send up to
+            <strong class="text-ink">300,000 DMs</strong> per month
             <template v-if="billing === 'yearly'"> per account / per month</template>
           </p>
-          <hr class="mt-6 border-t border-gray-200" />
-          <p class="mt-6 text-xs font-bold uppercase tracking-wide text-gray-900">
+          <hr class="mt-5 border-t border-edge" />
+          <p class="mt-5 text-xs font-bold uppercase tracking-wide text-ink">
             Everything in Pro, plus:
           </p>
-          <ul class="mt-3 flex-1 space-y-3 text-sm text-gray-700">
+          <ul class="mt-3 flex-1 space-y-2.5 text-sm text-ink-muted">
             <li v-for="f in platinumExtraFeatures" :key="f" class="flex gap-3">
               <span
-                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gray-400 text-[10px] font-bold text-white"
+                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tier-plat text-[10px] font-bold text-white"
                 aria-hidden="true"
               >✓</span>
               <span>{{ f }}</span>
@@ -218,7 +215,7 @@ const platinumPrice = computed(() =>
           </ul>
           <NuxtLink
             to="/signup"
-            class="mt-8 block w-full rounded-xl bg-gray-200 py-3.5 text-center text-sm font-bold text-gray-900 transition hover:bg-gray-300"
+            class="mt-6 block w-full rounded-xl bg-btn-muted py-3 text-center text-sm font-bold text-ink transition hover:bg-btn-muted-hover"
           >
             Upgrade to Platinum+
           </NuxtLink>

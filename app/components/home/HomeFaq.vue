@@ -145,15 +145,15 @@ function toggle(i: number) {
 </script>
 
 <template>
-  <section class="bg-white py-16 sm:py-20">
+  <section class="bg-canvas py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <p class="text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         Need answers?
       </p>
-      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         Frequently Asked Questions
       </h2>
-      <p class="mx-auto mt-4 max-w-4xl text-center text-base text-gray-600">
+      <p class="mx-auto mt-4 max-w-4xl text-center text-base text-ink-muted">
         Explore common inquiries about our platform and find instant solutions to your questions.
       </p>
 
@@ -161,7 +161,7 @@ function toggle(i: number) {
         <div
           v-for="(item, i) in faqs"
           :key="i"
-          class="rounded-2xl bg-gray-100 px-5 py-4 sm:px-6 sm:py-5"
+          class="rounded-2xl bg-faq-muted px-5 py-4 sm:px-6 sm:py-5"
         >
           <button
             type="button"
@@ -171,9 +171,9 @@ function toggle(i: number) {
             :id="`faq-trigger-${i}`"
             @click="toggle(i)"
           >
-            <span class="text-base font-bold text-gray-900 sm:text-lg">{{ item.question }}</span>
+            <span class="text-base font-bold text-ink sm:text-lg">{{ item.question }}</span>
             <span
-              class="inline-flex h-8 w-8 shrink-0 items-center justify-center text-gray-500 transition-transform duration-300 ease-out motion-reduce:transition-none"
+              class="inline-flex h-8 w-8 shrink-0 items-center justify-center text-ink-subtle transition-transform duration-300 ease-out motion-reduce:transition-none"
               :class="{ 'rotate-180': open[i] }"
               aria-hidden="true"
             >
@@ -194,7 +194,7 @@ function toggle(i: number) {
             <div class="min-h-0 overflow-hidden">
               <div
                 :id="`faq-panel-${i}`"
-                class="space-y-3 pt-3 text-left text-sm leading-relaxed text-gray-800 sm:text-base"
+                class="space-y-3 pt-3 text-left text-sm leading-relaxed text-ink-secondary sm:text-base"
                 role="region"
                 :aria-labelledby="`faq-trigger-${i}`"
               >
@@ -208,14 +208,14 @@ function toggle(i: number) {
                       <NuxtLink
                         v-else-if="!seg.external && seg.href.startsWith('/')"
                         :to="seg.href"
-                        class="font-medium text-blue-600 underline decoration-blue-600/30 underline-offset-2 hover:text-blue-700"
+                        class="font-medium text-link underline decoration-ink-subtle underline-offset-2 hover:text-link-hover"
                       >
                         {{ seg.text }}
                       </NuxtLink>
                       <a
                         v-else
                         :href="seg.href"
-                        class="font-medium text-blue-600 underline decoration-blue-600/30 underline-offset-2 hover:text-blue-700"
+                        class="font-medium text-link underline decoration-ink-subtle underline-offset-2 hover:text-link-hover"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

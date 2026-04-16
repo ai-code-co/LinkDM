@@ -15,7 +15,7 @@ const footnote = '*As of December 2025'
 
 <template>
   <section
-    class="bg-gradient-to-r from-[#E91E63] to-[#9C27B0] py-14 sm:py-16"
+    class="bg-gradient-to-r from-stat-from to-stat-to py-14 sm:py-16"
     aria-label="LinkDM performance statistics"
   >
     <div class="mx-auto max-w-7xl px-4 sm:px-8">

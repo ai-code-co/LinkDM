@@ -27,44 +27,44 @@ const META_BADGE =
 </script>
 
 <template>
-  <section class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-8 lg:py-16">
-      <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+  <section class="bg-canvas">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:py-12">
+      <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
         <div class="max-w-xl lg:max-w-none">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">LinkDM</span>
+            <span class="text-xl font-bold tracking-tight text-ink sm:text-2xl lg:text-3xl">LinkDM</span>
             <span
-              class="rounded-md bg-[#F4B459] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm"
+              class="rounded-md bg-pro-cta px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-pro-cta-text sm:px-2.5 sm:text-xs"
             >
               Pro
             </span>
           </div>
 
           <h1
-            class="mt-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-[2.75rem] lg:leading-tight"
+            class="mt-4 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:mt-5 lg:text-[2.5rem] lg:leading-tight"
           >
             Power Tools for Instagram Creators
           </h1>
-          <p class="mt-4 text-base leading-relaxed text-gray-800 sm:text-lg">
+          <p class="mt-3 text-sm leading-relaxed text-ink-secondary sm:text-base lg:text-lg">
             Enhance your LinkDM experience with access to Pro features, priority support and send up
             to 25,000 DMs per month!
           </p>
 
           <NuxtLink
             to="/signup"
-            class="mt-8 inline-block rounded-lg bg-[#F4B459] px-6 py-3 text-base font-bold text-gray-900 shadow-sm transition hover:bg-black hover:text-white"
+            class="mt-6 inline-block rounded-lg bg-pro-cta px-5 py-2.5 text-sm font-bold text-pro-cta-text shadow-sm transition hover:bg-btn-dark-hover hover:text-on-brand sm:px-6 sm:py-3 sm:text-base"
           >
             Upgrade to LinkDM Pro
           </NuxtLink>
-          <p class="mt-2 text-sm text-gray-600">No credit card required</p>
+          <p class="mt-2 text-xs text-ink-muted sm:text-sm">No credit card required</p>
 
           <div
-            class="mt-4 inline-block rounded-lg bg-white py-4 pl-0 pr-4 sm:py-5 sm:pr-5"
+            class="mt-4 inline-block rounded-lg bg-surface py-3 pl-0 pr-3 sm:py-4 sm:pr-4"
           >
             <img
               :src="META_BADGE"
               alt="Meta Business Partner"
-              class="h-16 w-auto sm:h-20 md:h-24"
+              class="h-14 w-auto sm:h-16 md:h-20"
               width="280"
               height="78"
               loading="lazy"
@@ -73,7 +73,7 @@ const META_BADGE =
         </div>
 
         <div
-          class="mx-auto w-full max-w-lg lg:mx-0 lg:ml-auto"
+          class="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto lg:max-w-lg"
           aria-live="polite"
         >
           <div class="relative aspect-square w-full overflow-hidden rounded-2xl">

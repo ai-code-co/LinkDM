@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen font-sans text-gray-900 antialiased">
+  <div
+    class="min-h-screen bg-auth-canvas font-sans text-ink antialiased transition-colors duration-200"
+  >
     <slot />
   </div>
 </template>

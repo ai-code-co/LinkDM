@@ -15,15 +15,15 @@ const partnerBenefits = [
 </script>
 
 <template>
-  <section class="bg-white py-16 sm:py-20">
+  <section class="bg-canvas py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
-      <p class="text-center text-xs font-bold uppercase tracking-wider text-[#1487fa]">
+      <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
         Built for affiliate platforms
       </p>
-      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         LinkDM Partner Program
       </h2>
-      <p class="mx-auto mt-4  text-center text-base leading-relaxed text-gray-600">
+      <p class="mx-auto mt-4 text-center text-base leading-relaxed text-ink-muted">
         Let your users access LinkDM Pro at no cost to them. Our partner program is designed for
         brands and affiliate platforms looking to boost user success with automated Instagram
         DMs—without any tech headaches.
@@ -41,15 +41,15 @@ const partnerBenefits = [
         </div>
 
         <div class="max-w-xl lg:max-w-none">
-          <h3 class="text-xl font-bold text-gray-900">Partner Benefits</h3>
-          <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-gray-600">
+          <h3 class="text-xl font-bold text-ink">Partner Benefits</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-ink-muted">
             <li v-for="(item, i) in partnerBenefits" :key="i">
               {{ item }}
             </li>
           </ul>
 
-          <h3 class="mt-8 text-xl font-bold text-gray-900">Exclusive Benefits</h3>
-          <p class="mt-3 text-base leading-relaxed text-gray-600">
+          <h3 class="mt-8 text-xl font-bold text-ink">Exclusive Benefits</h3>
+          <p class="mt-3 text-base leading-relaxed text-ink-muted">
             This program is built for brands that want to drive affiliate growth through DMs. No API
             needed. Custom branding options like &quot;Powered by [Your Brand]&quot; are available to
             make it your own.
@@ -60,7 +60,7 @@ const partnerBenefits = [
               :href="LEARN_MORE_URL"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex rounded-lg bg-[#1487fa] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-black"
+              class="inline-flex rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-on-brand shadow-sm transition hover:bg-btn-dark-hover hover:text-on-brand"
             >
               Learn more
             </a>
