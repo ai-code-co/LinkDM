@@ -85,6 +85,9 @@ const navLinkClass = 'text-ink transition-colors hover:text-ink-muted'
         <NuxtLink to="/pricing" :class="navLinkClass">
           Pricing
         </NuxtLink>
+        <NuxtLink v-if="accountName" to="/features" :class="navLinkClass">
+          Features
+        </NuxtLink>
         <NuxtLink v-if="accountName" to="/settings" :class="navLinkClass">
           Settings
         </NuxtLink>
@@ -226,6 +229,14 @@ const navLinkClass = 'text-ink transition-colors hover:text-ink-muted'
           @click="closeMenu"
         >
           Pricing
+        </NuxtLink>
+        <NuxtLink
+          v-if="accountName"
+          to="/features"
+          class="py-1 transition-colors hover:text-ink-muted"
+          @click="closeMenu"
+        >
+          Features
         </NuxtLink>
         <NuxtLink
           v-if="accountName"
