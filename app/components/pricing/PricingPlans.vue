@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 type Billing = 'monthly' | 'yearly'
+type Tier = 'pro' | 'platinum'
 
 const billing = ref<Billing>('monthly')
+const checkoutLoading = ref<Tier | null>(null)
+const checkoutError = ref('')
+const planLoading = ref(true)
+const activeTier = ref<'free' | Tier>('free')
+const session = useSupabaseSession()
+const user = useSupabaseUser()
+const supabase = useSupabaseClient()
+const config = useRuntimeConfig()
 
 const freeFeatures = [
   'Access Last 10 Posts',
@@ -50,6 +59,98 @@ const platinumPrice = computed(() =>
   billing.value === 'monthly'
     ? { amount: '$99', period: 'USD', sub: 'Per month' }
     : { amount: '$832', period: '', sub: 'Yearly', badge: 'Includes 30% Discount' },
+)
+const isProCurrentPlan = computed(() => activeTier.value === 'pro')
+const isPlatinumCurrentPlan = computed(() => activeTier.value === 'platinum')
+const proButtonLabel = computed(() =>
+  isProCurrentPlan.value ? 'Current Plan' : 'Upgrade to Pro',
+)
+const platinumButtonLabel = computed(() =>
+  isPlatinumCurrentPlan.value ? 'Current Plan' : 'Upgrade to Platinum+',
+)
+
+async function loadActiveTier() {
+  const claims = user.value as { sub?: string } | null
+  const userId = claims?.sub
+  if (!userId) {
+    activeTier.value = 'free'
+    planLoading.value = false
+    return
+  }
+
+  planLoading.value = true
+  const subscriptions = supabase.from('subscriptions') as any
+  const { data, error } = await subscriptions
+    .select('plan_tier,status,updated_at')
+    .eq('user_id', userId)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) {
+    console.error('Failed to load active plan:', error.message)
+    activeTier.value = 'free'
+    planLoading.value = false
+    return
+  }
+
+  const latest = (data as { plan_tier?: string | null, status?: string | null } | null)
+  const isActive = (latest?.status || '').toLowerCase() === 'active'
+  const tier = (latest?.plan_tier || '').toLowerCase()
+  activeTier.value = isActive && (tier === 'pro' || tier === 'platinum') ? tier : 'free'
+  planLoading.value = false
+}
+
+async function startCheckout(tier: Tier) {
+  if ((tier === 'pro' && isProCurrentPlan.value) || (tier === 'platinum' && isPlatinumCurrentPlan.value)) {
+    return
+  }
+  checkoutError.value = ''
+  const accessToken = session.value?.access_token
+  if (!accessToken) {
+    await navigateTo('/login')
+    return
+  }
+
+  try {
+    checkoutLoading.value = tier
+    const response = await $fetch<{ approveUrl: string }>(
+      `${config.public.apiBaseUrl}/payments/paypal/subscriptions/create`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: {
+          tier,
+          billing: billing.value,
+        },
+      },
+    )
+
+    if (!response?.approveUrl) {
+      throw new Error('PayPal approval URL was not returned by backend.')
+    }
+
+    await navigateTo(response.approveUrl, { external: true })
+  }
+  catch (error) {
+    checkoutError.value =
+      error instanceof Error
+        ? error.message
+        : 'Unable to start checkout right now. Please try again.'
+  }
+  finally {
+    checkoutLoading.value = null
+  }
+}
+
+onMounted(loadActiveTier)
+watch(
+  () => (user.value as { sub?: string } | null)?.sub,
+  () => {
+    loadActiveTier()
+  },
 )
 </script>
 
@@ -99,6 +200,12 @@ const platinumPrice = computed(() =>
           Yearly Pricing
         </button>
       </div>
+      <p
+        v-if="checkoutError"
+        class="mx-auto mb-6 max-w-xl rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+      >
+        {{ checkoutError }}
+      </p>
 
       <div class="grid gap-4 md:grid-cols-2 md:items-stretch lg:grid-cols-3 lg:gap-5">
         <div
@@ -171,12 +278,19 @@ const platinumPrice = computed(() =>
               <span>{{ f }}</span>
             </li>
           </ul>
-          <NuxtLink
-            to="/signup"
-            class="mt-6 block w-full rounded-xl bg-amber-400 py-3 text-center text-sm font-bold text-ink shadow-sm transition hover:bg-amber-500"
+          <button
+            type="button"
+            class="mt-6 block w-full rounded-xl py-3 text-center text-sm font-bold text-ink shadow-sm transition disabled:cursor-not-allowed disabled:opacity-60"
+            :class="
+              isProCurrentPlan
+                ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100'
+                : 'bg-amber-400 hover:bg-amber-500'
+            "
+            :disabled="checkoutLoading !== null || planLoading || isProCurrentPlan"
+            @click="startCheckout('pro')"
           >
-            Upgrade to Pro
-          </NuxtLink>
+            {{ checkoutLoading === 'pro' ? 'Redirecting to PayPal...' : proButtonLabel }}
+          </button>
         </div>
 
         <div
@@ -213,12 +327,19 @@ const platinumPrice = computed(() =>
               <span>{{ f }}</span>
             </li>
           </ul>
-          <NuxtLink
-            to="/signup"
-            class="mt-6 block w-full rounded-xl bg-btn-muted py-3 text-center text-sm font-bold text-ink transition hover:bg-btn-muted-hover"
+          <button
+            type="button"
+            class="mt-6 block w-full rounded-xl py-3 text-center text-sm font-bold text-ink transition disabled:cursor-not-allowed disabled:opacity-60"
+            :class="
+              isPlatinumCurrentPlan
+                ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100'
+                : 'bg-btn-muted hover:bg-btn-muted-hover'
+            "
+            :disabled="checkoutLoading !== null || planLoading || isPlatinumCurrentPlan"
+            @click="startCheckout('platinum')"
           >
-            Upgrade to Platinum+
-          </NuxtLink>
+            {{ checkoutLoading === 'platinum' ? 'Redirecting to PayPal...' : platinumButtonLabel }}
+          </button>
         </div>
       </div>
     </div>
