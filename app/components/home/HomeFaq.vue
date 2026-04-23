@@ -14,28 +14,28 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
-    question: 'What is LinkDM?',
+    question: 'What is Linkora?',
     paragraphs: [
-      'LinkDM is an Instagram marketing platform, that lets you automatically send DMs to anyone who comments on your Instagram Reels, Posts, Ads, Inbox, Live or Stories.',
-      'LinkDM helps you boost your affiliate revenue, blog views and website traffic by sending DMs with your links so your followers can easily find them.',
+      'Linkora is an Instagram marketing platform, that lets you automatically send DMs to anyone who comments on your Instagram Reels, Posts, Ads, Inbox, Live or Stories.',
+      'Linkora helps you boost your affiliate revenue, blog views and website traffic by sending DMs with your links so your followers can easily find them.',
     ],
   },
   {
-    question: 'Is LinkDM free to use?',
+    question: 'Is Linkora free to use?',
     paragraphs: [
-      'LinkDM offers a free tier with the ability to send up to 1,000 DMs per month.',
-      'LinkDM users can upgrade to Pro, which includes access to many Pro features as well as the ability to manage up to 3 Instagram accounts. LinkDM Pro costs $19 USD per month.',
+      'Linkora offers a free tier with the ability to send up to 1,000 DMs per month.',
+      'Linkora users can upgrade to Pro, which includes access to many Pro features as well as the ability to manage up to 3 Instagram accounts. Linkora Pro costs $19 USD per month.',
     ],
   },
   {
-    question: "Why is LinkDM free? What's the catch?",
+    question: "Why is Linkora free? What's the catch?",
     paragraphs: [
-      'Yes, LinkDM is indeed completely free to get started.',
+      'Yes, Linkora is indeed completely free to get started.',
       'As we strive to empower creators in the fast-paced, competitive digital landscape, we’re providing a high-quality tool to enhance your online interactions at no cost.',
       [
         {
           type: 'text',
-          text: 'Users can upgrade to LinkDM Pro for $19 USD per month, giving them access to premium features such as Inbox Automation, Advertising Automation and a higher level of DM sends per month. ',
+          text: 'Users can upgrade to Linkora Pro for $19 USD per month, giving them access to premium features such as Inbox Automation, Advertising Automation and a higher level of DM sends per month. ',
         },
         {
           type: 'link',
@@ -47,27 +47,27 @@ const faqs: FaqItem[] = [
     ],
   },
   {
-    question: 'Is LinkDM safe to use?',
+    question: 'Is Linkora safe to use?',
     paragraphs: [
-      'Yes, LinkDM is safe to use. As a certified Meta Business Partner, LinkDM is in strict compliance with Instagram’s guidelines and policies, ensuring the safety and privacy of your data.',
+      'Yes, Linkora is safe to use. As a certified Meta Business Partner, Linkora is in strict compliance with Instagram’s guidelines and policies, ensuring the safety and privacy of your data.',
       'Our platform exclusively uses the official Instagram APIs, which allows secure interaction with Instagram’s services without risking your account’s security.',
-      'We are committed to maintaining high standards of security and privacy, making LinkDM a reliable tool for enhancing your Instagram engagement.',
+      'We are committed to maintaining high standards of security and privacy, making Linkora a reliable tool for enhancing your Instagram engagement.',
     ],
   },
   {
-    question: "Is LinkDM compliant with Instagram's Terms of Service?",
+    question: "Is Linkora compliant with Instagram's Terms of Service?",
     paragraphs: [
-      'LinkDM is a certified Instagram third-party developer and a member of the Meta Business Partner program. This allows us to connect directly to the Instagram API and provide our services to users while remaining 100% compliant with Instagram TOS (Terms of Service).',
+      'Linkora is a certified Instagram third-party developer and a member of the Meta Business Partner program. This allows us to connect directly to the Instagram API and provide our services to users while remaining 100% compliant with Instagram TOS (Terms of Service).',
     ],
   },
   {
-    question: 'Do I need a credit card to use LinkDM for free?',
+    question: 'Do I need a credit card to use Linkora for free?',
     paragraphs: [
-      'No, you do not need to add a credit card to use the free version of LinkDM. The free version is available to use without requiring a credit card or any other payment information. However, if you decide to upgrade to the Pro version, you will need to provide a valid payment method in order to access the additional features and functionality.',
+      'No, you do not need to add a credit card to use the free version of Linkora. The free version is available to use without requiring a credit card or any other payment information. However, if you decide to upgrade to the Pro version, you will need to provide a valid payment method in order to access the additional features and functionality.',
     ],
   },
   {
-    question: 'How do I sign up for LinkDM?',
+    question: 'How do I sign up for Linkora?',
     paragraphs: [
       [
         { type: 'text', text: 'You can get started with a ' },
@@ -77,23 +77,23 @@ const faqs: FaqItem[] = [
     ],
   },
   {
-    question: 'Can LinkDM be used on other social media platforms?',
-    paragraphs: ['LinkDM software only works with Instagram and Facebook.'],
+    question: 'Can Linkora be used on other social media platforms?',
+    paragraphs: ['Linkora software only works with Instagram and Facebook.'],
   },
   {
-    question: 'Why do I need to connect my Facebook account to use LinkDM?',
+    question: 'Why do I need to connect my Facebook account to use Linkora?',
     paragraphs: [
-      'The Instagram API requires users to login with Facebook and to attach both their Instagram and connected Facebook page in order to access software like LinkDM.',
+      'The Instagram API requires users to login with Facebook and to attach both their Instagram and connected Facebook page in order to access software like Linkora.',
     ],
   },
   {
-    question: 'How many DMs can I send with LinkDM?',
+    question: 'How many DMs can I send with Linkora?',
     paragraphs: [
-      'In LinkDM, we have set a conservative DM send limit that is in accordance with Instagram’s developer guidelines. This limit helps prevent any potential rate limits from Instagram. If you have subscribed to LinkDM Pro your DMs will be queued up and sent at the start of the next hour, if you are using LinkDM Free your DMs will resume sending to new comments only at the start of the next hour.',
+      'In Linkora, we have set a conservative DM send limit that is in accordance with Instagram’s developer guidelines. This limit helps prevent any potential rate limits from Instagram. If you have subscribed to Linkora Pro your DMs will be queued up and sent at the start of the next hour, if you are using Linkora Free your DMs will resume sending to new comments only at the start of the next hour.',
     ],
   },
   {
-    question: 'Can I try LinkDM for free before committing to a subscription?',
+    question: 'Can I try Linkora for free before committing to a subscription?',
     paragraphs: [
       'Yes, you can sign up and use our free account tier with no core feature limits.',
       [
@@ -104,23 +104,23 @@ const faqs: FaqItem[] = [
     ],
   },
   {
-    question: 'Is LinkDM an alternative to Link-in-bio services?',
+    question: 'Is Linkora an alternative to Link-in-bio services?',
     paragraphs: [
-      'LinkDM doesn’t offer link-in-bio services like Linktree. Instead, it helps brands get more traffic to their Linktree links by sending them directly to the users inbox.',
+      'Linkora doesn’t offer link-in-bio services like Linktree. Instead, it helps brands get more traffic to their Linktree links by sending them directly to the users inbox.',
     ],
   },
   {
-    question: 'How do I contact LinkDM customer support if I need help?',
+    question: 'How do I contact Linkora customer support if I need help?',
     paragraphs: [
       [
         {
           type: 'text',
-          text: 'If you have any questions or need assistance with LinkDM, please send an email to ',
+          text: 'If you have any questions or need assistance with Linkora, please send an email to ',
         },
         {
           type: 'link',
-          text: 'support@LinkDM.com',
-          href: 'mailto:support@LinkDM.com',
+          text: 'support@Linkora.com',
+          href: 'mailto:support@Linkora.com',
         },
         {
           type: 'text',
@@ -130,7 +130,7 @@ const faqs: FaqItem[] = [
     ],
   },
   {
-    question: 'Does LinkDM need my Instagram password?',
+    question: 'Does Linkora need my Instagram password?',
     paragraphs: [
       'No, we will never request sensitive information from you such as passwords to any platform and you should never provide this information to anyone.',
     ],

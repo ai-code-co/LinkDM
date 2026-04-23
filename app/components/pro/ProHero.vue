@@ -2,10 +2,10 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const heroImages = [
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/66804502db07272fcbbec138_dfc58951fc0b9ceeac9b3b05b902f114_the_broadmoor_house.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/66804502ded09e104d3cc016_15a0ab68a54e556f97c9c12efd8d2c1d_shopcasitablanca.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/6604eabd9660b46d149f6c47_7d0910821a28a39afbf5c42a24911ef7_slide1.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/6606241338e757dde9c2b8c2_832f38d7695d3b5ccbc5bd6f440b8af8_slide4.avif',
+  '/heroa.png',
+  '/herob.png',
+  '/heroc.png',
+  '/herod.png',
 ] as const
 
 const heroImageIndex = ref(0)
@@ -32,7 +32,7 @@ const META_BADGE =
       <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
         <div class="max-w-xl lg:max-w-none">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xl font-bold tracking-tight text-ink sm:text-2xl lg:text-3xl">LinkDM</span>
+            <span class="text-xl font-bold tracking-tight text-ink sm:text-2xl lg:text-3xl">Linkora</span>
             <span
               class="rounded-md bg-pro-cta px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-pro-cta-text sm:px-2.5 sm:text-xs"
             >
@@ -46,7 +46,7 @@ const META_BADGE =
             Power Tools for Instagram Creators
           </h1>
           <p class="mt-3 text-sm leading-relaxed text-ink-secondary sm:text-base lg:text-lg">
-            Enhance your LinkDM experience with access to Pro features, priority support and send up
+            Enhance your Linkora experience with access to Pro features, priority support and send up
             to 25,000 DMs per month!
           </p>
 
@@ -54,7 +54,7 @@ const META_BADGE =
             to="/signup"
             class="mt-6 inline-block rounded-lg bg-pro-cta px-5 py-2.5 text-sm font-bold text-pro-cta-text shadow-sm transition hover:bg-btn-dark-hover hover:text-on-brand sm:px-6 sm:py-3 sm:text-base"
           >
-            Upgrade to LinkDM Pro
+            Upgrade to Linkora Pro
           </NuxtLink>
           <p class="mt-2 text-xs text-ink-muted sm:text-sm">No credit card required</p>
 
@@ -81,7 +81,7 @@ const META_BADGE =
               <img
                 :key="heroImageIndex"
                 :src="heroImages[heroImageIndex]"
-                alt="LinkDM Pro — comment to DM product example"
+                alt="Linkora Pro — comment to DM product example"
                 class="h-full w-full object-contain"
                 width="600"
                 height="600"

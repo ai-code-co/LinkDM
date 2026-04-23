@@ -25,7 +25,7 @@ const freeFeatures = [
 ]
 
 const proExtraFeatures = [
-  'Remove LinkDM Branding',
+  'Remove Linkora Branding',
   'Comment Auto-Reply',
   'Universal Triggers',
   'Flow Automation',
@@ -44,7 +44,7 @@ const proExtraFeatures = [
 
 const platinumExtraFeatures = [
   'Early Access New Features',
-  'Live Chat with LinkDM team',
+  'Live Chat with Linkora team',
   'DM Overflow Queue',
   'Teams [Coming Soon]',
 ]

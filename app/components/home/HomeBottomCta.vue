@@ -35,10 +35,10 @@ const btnClass = computed(() =>
           class="text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.5rem] lg:leading-snug"
         >
           <span class="block">Just like Instagram...</span>
-          <span class="block">LinkDM is free to use!</span>
+          <span class="block">Linkora is free to use!</span>
         </h2>
         <p class="mx-auto mt-5 max-w-2xl text-base font-normal text-ink sm:text-lg">
-          Join thousands of creators &amp; get started with your free LinkDM account today!
+          Join thousands of creators &amp; get started with your free Linkora account today!
         </p>
         <NuxtLink v-if="!isLoggedIn" to="/signup" class="mt-12" :class="btnClass">
           <span aria-hidden="true">👉</span>
@@ -48,10 +48,10 @@ const btnClass = computed(() =>
 
       <template v-else>
         <h2 class="text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-4xl">
-          🚀 Get started with LinkDM for free, in seconds!
+          🚀 Get started with Linkora for free, in seconds!
         </h2>
         <p class="mt-4 text-base text-ink-muted sm:text-lg">
-          Join over <span class="font-bold text-ink">48,000+</span> creators using LinkDM daily
+          Join over <span class="font-bold text-ink">48,000+</span> creators using Linkora daily
         </p>
         <NuxtLink v-if="!isLoggedIn" to="/signup" class="mt-6 sm:mt-7" :class="btnClass">
           <span aria-hidden="true">👉</span>

@@ -2,8 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const LOGO_SRC =
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e53ac1a5c83f678f4d7f_f4297ba2479cee9fa3ad6a47401edfa5_linkdm.avif'
+const LOGO_SRC = '/logo.png'
 
 const route = useRoute()
 const supabase = useSupabaseClient()
@@ -48,10 +47,10 @@ const navLinkClass = 'text-ink transition-colors hover:text-ink-muted'
       >
         <img
           :src="LOGO_SRC"
-          alt="LinkDM"
-          class="h-8 w-auto sm:h-9"
-          width="120"
-          height="36"
+          alt="Linkora"
+          class="h-10 w-auto sm:h-11"
+          width="156"
+          height="44"
           loading="eager"
         />
       </NuxtLink>
@@ -73,7 +72,7 @@ const navLinkClass = 'text-ink transition-colors hover:text-ink-muted'
           to="/pro"
           class="group inline-flex items-center gap-1.5"
         >
-          <span class="font-bold text-ink transition-colors group-hover:text-ink-muted">LinkDM</span>
+          <span class="font-bold text-ink transition-colors group-hover:text-ink-muted">Linkora</span>
           <span
             class="rounded bg-pro-amber px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white"
           >
@@ -214,7 +213,7 @@ const navLinkClass = 'text-ink transition-colors hover:text-ink-muted'
           class="group inline-flex items-center gap-2 py-1"
           @click="closeMenu"
         >
-          <span class="font-bold text-ink transition-colors group-hover:text-ink-muted">LinkDM</span>
+          <span class="font-bold text-ink transition-colors group-hover:text-ink-muted">Linkora</span>
           <span
             class="rounded bg-pro-amber px-1.5 py-0.5 text-[10px] font-semibold text-white"
           >

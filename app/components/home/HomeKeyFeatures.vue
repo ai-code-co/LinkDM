@@ -81,13 +81,13 @@ const features: Feature[] = [
     tier: 'pro',
     icon: 'tag',
     title: 'White Label',
-    description: 'Remove LinkDM branding from DMs sent.',
+    description: 'Remove Linkora branding from DMs sent.',
   },
   {
     tier: 'pro',
     icon: 'users',
     title: 'Multiple Accounts',
-    description: 'Connect up to 3 Instagram Accounts to your LinkDM Profile.',
+    description: 'Connect up to 3 Instagram Accounts to your Linkora Profile.',
   },
   {
     tier: 'pro',
@@ -165,7 +165,7 @@ const features: Feature[] = [
     tier: 'platinum',
     icon: 'accountsPlus',
     title: 'Accounts+',
-    description: 'Connect up to 10 Instagram accounts to your LinkDM profile.',
+    description: 'Connect up to 10 Instagram accounts to your Linkora profile.',
   },
   {
     tier: 'platinum',
@@ -200,7 +200,7 @@ function iconBoxClass(tier: Tier) {
           Unlock The Full Potential
         </h2>
         <p class="mx-auto mt-4 text-center text-base text-ink-muted">
-          Dive deep into LinkDM&apos;s capabilities with these standout features, each designed to
+          Dive deep into Linkora&apos;s capabilities with these standout features, each designed to
           enhance your experience and streamline your tasks. Discover what sets us apart.
         </p>
       </template>

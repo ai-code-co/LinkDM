@@ -17,7 +17,7 @@ interface Testimonial {
 const defaultTestimonials: Testimonial[] = [
   {
     quote:
-      "I love this tool! I tried a few competitors first and they had a very steep learning curve. LinkDM was so much easier to understand. In the month that I've started using it, I've doubled my earnings through Instagram affiliate marketing.",
+      "I love this tool! I tried a few competitors first and they had a very steep learning curve. Linkora was so much easier to understand. In the month that I've started using it, I've doubled my earnings through Instagram affiliate marketing.",
     avatar:
       'https://cdn.prod.website-files.com/64c32f858561c58fd42768e3/64ded2a5a3fa6068100222f4_64c251764a9b193611faa4fd_MsGoldgirl.jpg',
     avatarAlt: 'MsGoldgirl profile photo',
@@ -27,7 +27,7 @@ const defaultTestimonials: Testimonial[] = [
   },
   {
     quote:
-      "Couldn't be happier using LinkDM! So easy and user friendly and the customer service alone is 5 stars!!",
+      "Couldn't be happier using Linkora! So easy and user friendly and the customer service alone is 5 stars!!",
     avatar:
       'https://cdn.prod.website-files.com/64c32f858561c58fd42768e3/64e55435999442a59d2770cf_338378588_729298502282022_4369451311760468215_n.jpg',
     avatarAlt: 'Nicole profile photo',
@@ -37,7 +37,7 @@ const defaultTestimonials: Testimonial[] = [
   },
   {
     quote:
-      'I absolutely love the service LinkDM provides! They don\'t cost a thing and they help me send links to thousands of my followers, efficiently and effectively. I also love how user friendly their website is. It was super easy for me to connect my Instagram account and start linking my posts. They are also available to chat via the instagram messenger if you have a question or need help trouble shooting. I highly recommend using their service!',
+      'I absolutely love the service Linkora provides! They don\'t cost a thing and they help me send links to thousands of my followers, efficiently and effectively. I also love how user friendly their website is. It was super easy for me to connect my Instagram account and start linking my posts. They are also available to chat via the instagram messenger if you have a question or need help trouble shooting. I highly recommend using their service!',
     avatar:
       'https://cdn.prod.website-files.com/64c32f858561c58fd42768e3/64e2d553bcf173db90263dce_339110832_1389060248578148_3699831609460699625_n.jpg',
     avatarAlt: 'Just Jacsy profile photo',
@@ -50,7 +50,7 @@ const defaultTestimonials: Testimonial[] = [
 const proCreatorsTestimonials: Testimonial[] = [
   {
     quote:
-      "LinkDM has changed my online business! I highly recommend their services. Easy to use, easy to navigate. Great customer service. I couldn't love a service more. If you are thinking on using automation for your social platforms, LinkDM is the best!",
+      "Linkora has changed my online business! I highly recommend their services. Easy to use, easy to navigate. Great customer service. I couldn't love a service more. If you are thinking on using automation for your social platforms, Linkora is the best!",
     avatar: 'https://i.pravatar.cc/128?u=eatwithcarmen',
     avatarAlt: '@eatwithcarmen_ profile photo',
     handle: '@eatwithcarmen_',
@@ -69,7 +69,7 @@ const proCreatorsTestimonials: Testimonial[] = [
   },
   {
     quote:
-      "I've been using LinkDM for a couple of months and love it. It is super EASY to use and works flawlessly. They are constantly upgrading the tool with new features. Amazing customer service. Highly recommend!",
+      "I've been using Linkora for a couple of months and love it. It is super EASY to use and works flawlessly. They are constantly upgrading the tool with new features. Amazing customer service. Highly recommend!",
     avatar: 'https://i.pravatar.cc/128?u=justglow011',
     avatarAlt: '@Justglow011 profile photo',
     handle: '@Justglow011',
@@ -91,7 +91,7 @@ const props = withDefaults(
   }>(),
   {
     variant: 'default',
-    ctaHref: 'https://linkdm.com',
+    ctaHref: 'https://Linkora.com',
   },
 )
 
@@ -103,7 +103,7 @@ const eyebrowText = computed(() => {
 
 const titleText = computed(() => {
   if (props.title !== undefined) return props.title
-  if (props.variant === 'pro-creators') return "Who's Using LinkDM?"
+  if (props.variant === 'pro-creators') return "Who's Using Linkora?"
   return 'Trusted by over 48,000+ Creators, Brands and Agencies'
 })
 

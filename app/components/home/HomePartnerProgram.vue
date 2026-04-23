@@ -2,7 +2,7 @@
 const PARTNER_IMAGE =
   'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/682b3e1feb29a267810885fd_partnership_home.avif'
 
-const LEARN_MORE_URL = 'https://linkdm.com'
+const LEARN_MORE_URL = 'https://Linkora.com'
 
 const partnerBenefits = [
   'Complimentary Pro access for your users',
@@ -21,10 +21,10 @@ const partnerBenefits = [
         Built for affiliate platforms
       </p>
       <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-        LinkDM Partner Program
+        Linkora Partner Program
       </h2>
       <p class="mx-auto mt-4 text-center text-base leading-relaxed text-ink-muted">
-        Let your users access LinkDM Pro at no cost to them. Our partner program is designed for
+        Let your users access Linkora Pro at no cost to them. Our partner program is designed for
         brands and affiliate platforms looking to boost user success with automated Instagram
         DMs—without any tech headaches.
       </p>
@@ -33,7 +33,7 @@ const partnerBenefits = [
         <div class="flex justify-center lg:justify-start">
           <img
             :src="PARTNER_IMAGE"
-            alt="LinkDM partner user analytics dashboard"
+            alt="Linkora partner user analytics dashboard"
             class="block w-full max-w-md border-0 lg:max-w-lg"
             loading="lazy"
             decoding="async"

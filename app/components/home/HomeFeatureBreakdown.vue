@@ -14,48 +14,42 @@ const defaultRows: FeatureBreakdownRow[] = [
     title: 'Auto-Reply to Instagram Reel Comments',
     description:
       "Reply to Instagram reel comments automatically with a DM sent straight to the users inbox. Add trigger keywords or respond to all comments.",
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/65a36d00824a9fd570c96c70_5f7d35adb6d0b687fbd0d3805c6adc04_section1_new.avif',
+    image: '/featurea.png',
     imageAlt: 'Instagram Reel comment auto-reply flow',
   },
   {
     title: 'Auto-Reply to Instagram Post Comments',
     description:
       'Reply to Instagram post comments automatically with a DM sent straight to the users inbox. Add trigger keywords or respond to all comments.',
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e3ac54cac710689f9b28_90930f39a3b72d8a467e1ea5f0eaa032_section2.avif',
+    image: '/featureb.png',
     imageAlt: 'Instagram post comment auto-reply flow',
   },
   {
     title: 'Auto-Respond to Instagram Story Replies',
     description:
       "Automatically respond to story replies with a DM sent directly to the user's inbox. Add trigger keywords or respond to all replies.",
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e3ac3234585a3d01e7ab_section3.webp',
+    image: '/featurec.png',
     imageAlt: 'Instagram story reply auto-DM flow',
   },
   {
     title: 'Auto-Reply to Instagram Story Mentions',
     description:
       "Automatically respond to story @mentions with a message sent directly to the user's inbox.",
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e3acade725a68dec60b5_2f14f1c92fdb4da8fdcdd2b78db9e31f_section4.avif',
+    image: '/featured.png',
     imageAlt: 'Instagram story mention auto-reply flow',
   },
   {
     title: 'Inbox Starters',
     description:
       'Display up to 4 conversation starters when a user navigates to your Instagram inbox.',
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e3ac966686a7d1306786_8a08a1d6ca4d4bed3c971f132e926ce5_section5.avif',
+    image: '/featuree.png',
     imageAlt: 'Instagram inbox conversation starters',
   },
   {
     title: 'Auto-Reply to Sponsored Ad Comments',
     description:
       "Auto-reply to comments on your sponsored content with a DM sent directly to the user's inbox. Respond to keywords or all comments.",
-    image:
-      'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e3acc1a5c83f678d5ae4_a319e4bb4260108cea9aa59d43109b10_section6.avif',
+    image: '/featuref.png',
     imageAlt: 'Sponsored ad comment auto-reply flow',
   },
 ]
@@ -113,7 +107,7 @@ const blobClass = ['bg-pink-100/70', 'bg-violet-100/70', 'bg-rose-100/70', 'bg-p
             <img
               :src="row.image"
               :alt="row.imageAlt"
-              class="relative mx-auto w-full max-w-sm"
+              class="relative mx-auto w-full max-w-sm rounded-[20px]"
               loading="lazy"
               decoding="async"
             />
