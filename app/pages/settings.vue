@@ -40,7 +40,6 @@ const profileRows = computed(() => {
   const claims = userClaims.value
   const metadata = claims?.user_metadata ?? {}
   return [
-    { label: 'User ID', value: claims?.sub || '-' },
     { label: 'Email', value: claims?.email || '-' },
     { label: 'First Name', value: metadata.first_name?.trim() || '-' },
     { label: 'Last Name', value: metadata.last_name?.trim() || '-' },
@@ -227,97 +226,113 @@ async function selectTheme(id: (typeof THEMES)[number]['id']) {
 
       <section
         v-if="activeTab === 'profile'"
-        class="mt-6 rounded-2xl border border-edge bg-surface p-4 sm:mt-8 sm:p-6"
+        class="mt-6 sm:mt-8"
       >
-        <h2 class="text-lg font-bold text-ink sm:text-xl">
-          Profile Information
-        </h2>
-        <p class="mt-1.5 text-sm text-ink-muted sm:text-base">
-          Details connected to your account profile.
-        </p>
-        <div class="mt-5 rounded-2xl border border-edge bg-gradient-to-br from-brand/10 via-surface to-surface p-4 shadow-sm sm:p-5">
-          <div class="flex items-center justify-between gap-3">
-            <p class="text-sm font-semibold text-ink">
-              Subscription
-            </p>
-            <span
-              class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold"
-              :class="subscriptionStatusClass"
-            >
-              {{ subscriptionStatus }}
-            </span>
-          </div>
-          <div class="mt-4 grid gap-3 sm:grid-cols-3">
-            <div class="rounded-xl border border-edge bg-surface/80 px-4 py-3">
-              <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
-                Current Plan
-              </p>
-              <p class="mt-1 text-sm font-bold text-ink sm:text-base">
-                {{ subscriptionPlanName }}
-              </p>
-            </div>
-            <div class="rounded-xl border border-edge bg-surface/80 px-4 py-3">
-              <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
-                Status
-              </p>
-              <p class="mt-1 text-sm font-bold text-ink sm:text-base">
-                {{ subscriptionStatus }}
-              </p>
-            </div>
-            <div class="rounded-xl border border-edge bg-surface/80 px-4 py-3">
-              <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
-                Last Synced
-              </p>
-              <p class="mt-1 text-sm font-bold text-ink sm:text-base">
-                {{ subscriptionLastSynced }}
-              </p>
+        <div class="overflow-hidden rounded-3xl border border-edge bg-surface shadow-sm">
+          <div class="border-b border-edge bg-gradient-to-r from-brand/10 via-brand/5 to-transparent px-5 py-5 sm:px-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h2 class="text-lg font-bold text-ink sm:text-xl">
+                  Profile Information
+                </h2>
+                <p class="mt-1.5 text-sm text-ink-muted sm:text-base">
+                  Details connected to your account profile.
+                </p>
+              </div>
+              <span
+                class="inline-flex items-center rounded-full border border-brand/20 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand"
+              >
+                Account
+              </span>
             </div>
           </div>
-          <div
-            v-if="canCancelSubscription"
-            class="mt-4 flex flex-wrap items-center gap-3"
-          >
-            <button
-              type="button"
-              class="rounded-xl bg-rose-100 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60"
-              :disabled="cancelLoading"
-              @click="openCancelConfirm"
-            >
-              {{ cancelLoading ? 'Cancelling...' : 'Cancel Subscription' }}
-            </button>
-            <p
-              v-if="cancelSuccess"
-              class="text-sm font-medium text-emerald-600"
-            >
-              {{ cancelSuccess }}
-            </p>
+          <div class="space-y-6 p-5 sm:p-6">
+            <div class="rounded-2xl border border-edge bg-canvas/70 p-4 sm:p-5">
+              <div class="flex items-center justify-between gap-3">
+                <p class="text-sm font-semibold text-ink">
+                  Subscription
+                </p>
+                <span
+                  class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold"
+                  :class="subscriptionStatusClass"
+                >
+                  {{ subscriptionStatus }}
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                <div class="rounded-xl border border-edge bg-surface px-4 py-3 shadow-sm">
+                  <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
+                    Current Plan
+                  </p>
+                  <p class="mt-1 text-sm font-bold text-ink sm:text-base">
+                    {{ subscriptionPlanName }}
+                  </p>
+                </div>
+                <div class="rounded-xl border border-edge bg-surface px-4 py-3 shadow-sm">
+                  <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
+                    Status
+                  </p>
+                  <p class="mt-1 text-sm font-bold text-ink sm:text-base">
+                    {{ subscriptionStatus }}
+                  </p>
+                </div>
+                <div class="rounded-xl border border-edge bg-surface px-4 py-3 shadow-sm">
+                  <p class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
+                    Last Synced
+                  </p>
+                  <p class="mt-1 text-sm font-bold text-ink sm:text-base">
+                    {{ subscriptionLastSynced }}
+                  </p>
+                </div>
+              </div>
+              <div
+                v-if="canCancelSubscription"
+                class="mt-4 flex flex-wrap items-center gap-3"
+              >
+                <button
+                  type="button"
+                  class="rounded-xl bg-rose-100 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60"
+                  :disabled="cancelLoading"
+                  @click="openCancelConfirm"
+                >
+                  {{ cancelLoading ? 'Cancelling...' : 'Cancel Subscription' }}
+                </button>
+                <p
+                  v-if="cancelSuccess"
+                  class="text-sm font-medium text-emerald-600"
+                >
+                  {{ cancelSuccess }}
+                </p>
+              </div>
+              <p
+                v-if="cancelError"
+                class="mt-3 text-sm font-medium text-rose-600"
+              >
+                {{ cancelError }}
+              </p>
+            </div>
+
+            <dl class="grid gap-3 sm:grid-cols-2 sm:gap-4">
+              <div
+                v-for="row in profileRows"
+                :key="row.label"
+                class="rounded-xl border border-edge bg-surface px-4 py-3 shadow-sm"
+              >
+                <dt class="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
+                  {{ row.label }}
+                </dt>
+                <dd class="mt-1.5 break-words text-sm font-medium text-ink sm:text-base">
+                  {{ row.value }}
+                </dd>
+              </div>
+            </dl>
           </div>
-          <p
-            v-if="cancelError"
-            class="mt-3 text-sm font-medium text-rose-600"
-          >
-            {{ cancelError }}
-          </p>
         </div>
-        <dl class="mt-5 space-y-3">
-          <div
-            v-for="row in profileRows"
-            :key="row.label"
-            class="flex items-start justify-between gap-4 rounded-xl border border-edge px-4 py-3"
-          >
-            <dt class="text-sm font-semibold text-ink">
-              {{ row.label }}
-            </dt>
-            <dd class="max-w-[60%] break-words text-right text-sm text-ink-muted">
-              {{ row.value }}
-            </dd>
-          </div>
-        </dl>
       </section>
 
       <section v-else class="mt-6 sm:mt-8">
         <p class="max-w-2xl text-sm text-ink-muted sm:text-base">
-          Choose a color theme for LinkDM. Your choice is saved to your account and synced across devices.
+          Choose a color theme for Linkora. Your choice is saved to your account and synced across devices.
         </p>
         <div
           class="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4"

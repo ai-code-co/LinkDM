@@ -8,8 +8,7 @@ definePageMeta({
 
 const supabase = useSupabaseClient()
 
-const LOGO_SRC =
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e53ac1a5c83f678f4d7f_f4297ba2479cee9fa3ad6a47401edfa5_linkdm.avif'
+const LOGO_SRC = '/logo.png'
 
 const countries = [
   { value: 'us', label: 'United States' },
@@ -98,19 +97,19 @@ async function onSubmit() {
       <NuxtLink to="/" class="inline-block">
         <img
           :src="LOGO_SRC"
-          alt="LinkDM"
-          class="h-9 w-auto"
-          width="130"
-          height="40"
+          alt="Linkora"
+          class="h-12 w-auto"
+          width="170"
+          height="48"
           loading="eager"
         />
       </NuxtLink>
 
       <h1 class="mt-6 text-2xl font-bold text-ink">
-        Create A Free LinkDM Account
+        Create A Free Linkora Account
       </h1>
       <p class="mt-3 text-center text-sm text-ink-subtle">
-        Join LinkDM, the fastest growing Instagram DM Automation platform loved by
+        Join Linkora, the fastest growing Instagram DM Automation platform loved by
         thousands of creators!
       </p>
 
@@ -274,7 +273,7 @@ async function onSubmit() {
     </div>
 
     <p class="mt-8 text-center text-sm text-ink-subtle">
-      Already using LinkDM?
+      Already using Linkora?
       <NuxtLink
         to="/login"
         class="font-medium text-ink-muted underline decoration-edge-strong underline-offset-2 hover:text-ink"

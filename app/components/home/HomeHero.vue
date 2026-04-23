@@ -5,10 +5,10 @@ const user = useSupabaseUser()
 const isLoggedIn = computed(() => Boolean(user.value))
 
 const heroImages = [
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/66804502db07272fcbbec138_dfc58951fc0b9ceeac9b3b05b902f114_the_broadmoor_house.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/66804502ded09e104d3cc016_15a0ab68a54e556f97c9c12efd8d2c1d_shopcasitablanca.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/6604eabd9660b46d149f6c47_7d0910821a28a39afbf5c42a24911ef7_slide1.avif',
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/6606241338e757dde9c2b8c2_832f38d7695d3b5ccbc5bd6f440b8af8_slide4.avif',
+  '/heroa.png',
+  '/herob.png',
+  '/heroc.png',
+  '/herod.png',
 ] as const
 
 const heroImageIndex = ref(0)
@@ -32,7 +32,7 @@ const stats = [
   {
     key: 'users',
     value: '48,000+',
-    label: 'Happy LinkDM Users',
+    label: 'Happy Linkora Users',
     stars: true as const,
   },
   {
@@ -82,7 +82,7 @@ const stats = [
                 <img
                   :key="heroImageIndex"
                   :src="heroImages[heroImageIndex]"
-                  alt="LinkDM — creators using automated Instagram DMs"
+                  alt="Linkora — creators using automated Instagram DMs"
                   class="h-full w-full object-contain"
                   width="600"
                   height="600"
@@ -145,7 +145,7 @@ const stats = [
               <img
                 :key="heroImageIndex"
                 :src="heroImages[heroImageIndex]"
-                alt="LinkDM — creators using automated Instagram DMs"
+                alt="Linkora — creators using automated Instagram DMs"
                 class="h-full w-full object-contain"
                 width="600"
                 height="600"

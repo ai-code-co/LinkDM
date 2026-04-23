@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const LOGO_SRC =
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e53ac1a5c83f678f4d7f_f4297ba2479cee9fa3ad6a47401edfa5_linkdm.avif'
+const LOGO_SRC = '/logo.png'
 
 const links = [
   { label: 'Sign Up', href: '/signup' },
@@ -42,10 +41,10 @@ const support = [
           <NuxtLink to="/" class="inline-flex items-center gap-2">
             <img
               :src="LOGO_SRC"
-              alt="LinkDM"
-              class="h-9 w-auto"
-              width="130"
-              height="40"
+              alt="Linkora"
+              class="h-11 w-auto"
+              width="156"
+              height="44"
               loading="lazy"
             />
           </NuxtLink>
@@ -231,10 +230,10 @@ const support = [
       <div class="mt-12 border-t border-edge pt-6 text-center text-sm text-ink-muted">
         Copyright © 2026
         <a
-          href="https://webdot.club"
+          href="https://linkdm.vercel.app"
           class="underline decoration-ink-subtle underline-offset-2 transition hover:text-ink"
         >
-          Webdot.club
+          Linkora
         </a>
       </div>
     </div>

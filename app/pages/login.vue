@@ -9,8 +9,7 @@ definePageMeta({
 const route = useRoute()
 const supabase = useSupabaseClient()
 
-const LOGO_SRC =
-  'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/64c9e53ac1a5c83f678f4d7f_f4297ba2479cee9fa3ad6a47401edfa5_linkdm.avif'
+const LOGO_SRC = '/logo.png'
 
 const email = ref('')
 const password = ref('')
@@ -61,10 +60,10 @@ async function onSubmit() {
       <NuxtLink to="/" class="inline-block">
         <img
           :src="LOGO_SRC"
-          alt="LinkDM"
-          class="h-9 w-auto"
-          width="130"
-          height="40"
+          alt="Linkora"
+          class="h-12 w-auto"
+          width="170"
+          height="48"
           loading="eager"
         />
       </NuxtLink>
@@ -140,7 +139,7 @@ async function onSubmit() {
           to="/signup"
           class="underline decoration-edge-strong underline-offset-2 hover:text-ink-muted"
         >
-          Create a free LinkDM account
+          Create a free Linkora account
         </NuxtLink>
       </p>
     </div>

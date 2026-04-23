@@ -284,7 +284,7 @@ const mobileBrands = brands.slice(0, 16)
   <section class="bg-canvas-subtle py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
       <h2 class="text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-        Who&apos;s Using LinkDM?
+        Who&apos;s Using Linkora?
       </h2>
 
   

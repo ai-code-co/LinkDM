@@ -2,8 +2,8 @@
 const REFERRAL_IMAGE =
   'https://cdn.prod.website-files.com/6469c31014f61c2d0620f95c/67daa7467f269b6954fadc3b_linkdm_referral_box.avif'
 
-const LEARN_MORE_URL = 'https://linkdm.com'
-const FAQ_URL = 'https://linkdm.com'
+const LEARN_MORE_URL = 'https://Linkora.com'
+const FAQ_URL = 'https://Linkora.com'
 
 const howItWorks = [
   'Share your unique referral link',
@@ -16,13 +16,13 @@ const howItWorks = [
   <section class="bg-canvas py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-8">
       <p class="text-center text-xs font-bold uppercase tracking-wider text-eyebrow">
-        Earn with LinkDM
+        Earn with Linkora
       </p>
       <h2 class="mt-3 text-center text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-        LinkDM Referral Program
+        Linkora Referral Program
       </h2>
       <p class="mx-auto mt-4 text-center text-base leading-relaxed text-ink-muted">
-        Refer your friends to LinkDM and earn 30% of the total revenue they spend on a paid
+        Refer your friends to Linkora and earn 30% of the total revenue they spend on a paid
         subscription during their first year. It&apos;s our way of rewarding our most engaged users
         for helping to grow the community and share the value of our platform.
       </p>
@@ -48,7 +48,7 @@ const howItWorks = [
 
           <h3 class="mt-8 text-xl font-bold text-ink">Exclusive Access</h3>
           <p class="mt-3 text-base text-ink-muted">
-            This program is available to LinkDM Pro users
+            This program is available to Linkora Pro users
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">

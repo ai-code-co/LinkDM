@@ -9,7 +9,7 @@ export const THEMES: {
   {
     id: 'default',
     name: 'Classic',
-    description: 'Original LinkDM look — clean white and blue.',
+    description: 'Original Linkora look — clean white and blue.',
     scheme: 'light',
   },
   {
@@ -64,7 +64,7 @@ async function saveThemeToProfile(theme: ThemeId) {
 }
 
 export function useTheme() {
-  const theme = useState<ThemeId>('linkdm-theme', () => 'default')
+  const theme = useState<ThemeId>('Linkora-theme', () => 'default')
 
   async function setTheme(id: ThemeId, options: { syncProfile?: boolean } = {}) {
     const { syncProfile = false } = options

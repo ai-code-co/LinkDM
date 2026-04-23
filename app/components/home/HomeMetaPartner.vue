@@ -14,7 +14,7 @@ const LOGO_SRC =
             Badged partner
           </p>
           <h2 class="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-            LinkDM is a Meta Business Partner
+            Linkora is a Meta Business Partner
           </h2>
           <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink">
             We&apos;ve been a certified Meta Business Partner since 2021, offering peace of mind
