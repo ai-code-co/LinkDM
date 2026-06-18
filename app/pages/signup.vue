@@ -247,9 +247,9 @@ async function onSubmit() {
           />
           <label for="signup-terms" class="text-sm text-ink-muted">
             I accept the
-            <a href="#" class="text-link hover:underline">Terms &amp; Conditions</a>
+            <NuxtLink to="/terms-of-service" class="text-link hover:underline">Terms &amp; Conditions</NuxtLink>
             and
-            <a href="#" class="text-link hover:underline">Privacy Policy</a>
+            <NuxtLink to="/privacy-policy" class="text-link hover:underline">Privacy Policy</NuxtLink>
           </label>
         </div>
 
