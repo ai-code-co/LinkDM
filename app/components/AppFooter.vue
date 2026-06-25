@@ -25,8 +25,8 @@ const business = [
 
 const support = [
   { label: 'Help & Support', href: '#' },
-  { label: 'Terms of Use', href: '#' },
-  { label: 'Privacy Policy', href: '#' },
+  { label: 'Terms of Use', href: '/terms-of-service' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Refund Policy', href: '#' },
 ]
 </script>
