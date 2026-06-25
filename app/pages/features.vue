@@ -18,6 +18,17 @@ interface FacebookConnection {
   updated_at: string
 }
 
+interface WhatsAppConnection {
+  id: string
+  phone_number_id: string
+  display_phone_number: string | null
+  verified_name: string | null
+  waba_name: string | null
+  webhook_subscribed: boolean
+  created_at: string
+  updated_at: string
+}
+
 const facebookLoading = ref(true)
 const facebookConnectLoading = ref(false)
 const facebookDisconnectLoading = ref(false)
@@ -25,6 +36,14 @@ const facebookConnections = ref<FacebookConnection[]>([])
 const facebookError = ref('')
 
 const facebookConnected = computed(() => facebookConnections.value.length > 0)
+
+const whatsappLoading = ref(true)
+const whatsappConnectLoading = ref(false)
+const whatsappDisconnectLoading = ref(false)
+const whatsappConnections = ref<WhatsAppConnection[]>([])
+const whatsappError = ref('')
+
+const whatsappConnected = computed(() => whatsappConnections.value.length > 0)
 
 const facebookBanner = computed(() => {
   const status = route.query.facebook
@@ -37,6 +56,21 @@ const facebookBanner = computed(() => {
   if (status === 'error') {
     const message = typeof route.query.message === 'string' ? route.query.message : 'Connection failed.'
     return `Facebook connection failed: ${message}`
+  }
+  return ''
+})
+
+const whatsappBanner = computed(() => {
+  const status = route.query.whatsapp
+  if (status === 'connected') {
+    const numbers = typeof route.query.numbers === 'string' ? route.query.numbers : ''
+    return numbers
+      ? `WhatsApp connected successfully: ${numbers}`
+      : 'WhatsApp connected successfully.'
+  }
+  if (status === 'error') {
+    const message = typeof route.query.message === 'string' ? route.query.message : 'Connection failed.'
+    return `WhatsApp connection failed: ${message}`
   }
   return ''
 })
@@ -130,7 +164,100 @@ async function disconnectFacebook() {
   }
 }
 
-onMounted(loadFacebookStatus)
+async function loadWhatsAppStatus() {
+  const accessToken = session.value?.access_token
+  if (!accessToken) {
+    whatsappConnections.value = []
+    whatsappLoading.value = false
+    return
+  }
+
+  whatsappLoading.value = true
+  whatsappError.value = ''
+
+  try {
+    const response = await $fetch<{ connected: boolean, connections: WhatsAppConnection[] }>(
+      `${config.public.apiBaseUrl}/auth/whatsapp/status`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
+    whatsappConnections.value = response.connections ?? []
+  }
+  catch (error) {
+    whatsappError.value =
+      error instanceof Error ? error.message : 'Unable to load WhatsApp connection status.'
+    whatsappConnections.value = []
+  }
+  finally {
+    whatsappLoading.value = false
+  }
+}
+
+async function connectWhatsApp() {
+  const accessToken = session.value?.access_token
+  if (!accessToken || whatsappConnectLoading.value) return
+
+  whatsappConnectLoading.value = true
+  whatsappError.value = ''
+
+  try {
+    const response = await $fetch<{ url: string }>(
+      `${config.public.apiBaseUrl}/auth/whatsapp/connect`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
+    if (response.url) {
+      window.location.href = response.url
+      return
+    }
+    whatsappError.value = 'WhatsApp connect URL was not returned.'
+  }
+  catch (error) {
+    whatsappError.value =
+      error instanceof Error ? error.message : 'Unable to start WhatsApp connection.'
+  }
+  finally {
+    whatsappConnectLoading.value = false
+  }
+}
+
+async function disconnectWhatsApp() {
+  const accessToken = session.value?.access_token
+  if (!accessToken || whatsappDisconnectLoading.value) return
+
+  whatsappDisconnectLoading.value = true
+  whatsappError.value = ''
+
+  try {
+    await $fetch(`${config.public.apiBaseUrl}/auth/whatsapp/disconnect`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    whatsappConnections.value = []
+  }
+  catch (error) {
+    whatsappError.value =
+      error instanceof Error ? error.message : 'Unable to disconnect WhatsApp.'
+  }
+  finally {
+    whatsappDisconnectLoading.value = false
+  }
+}
+
+function loadConnectionStatuses() {
+  return Promise.all([loadFacebookStatus(), loadWhatsAppStatus()])
+}
+
+onMounted(loadConnectionStatuses)
 </script>
 
 <template>
@@ -151,6 +278,13 @@ onMounted(loadFacebookStatus)
         class="mt-6 rounded-xl border border-edge bg-surface px-4 py-3 text-sm text-ink"
       >
         {{ facebookBanner }}
+      </p>
+
+      <p
+        v-if="whatsappBanner"
+        class="mt-6 rounded-xl border border-edge bg-surface px-4 py-3 text-sm text-ink"
+      >
+        {{ whatsappBanner }}
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -213,11 +347,54 @@ onMounted(loadFacebookStatus)
             several questions to the user.
           </p>
 
-          <button
-            type="button"
-            class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700"
+          <div
+            v-if="whatsappConnected"
+            class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3"
           >
-            connect for DM replies
+            <p class="text-sm font-semibold text-emerald-900">
+              Connected
+            </p>
+            <ul class="mt-2 space-y-1 text-sm text-emerald-800">
+              <li
+                v-for="connection in whatsappConnections"
+                :key="connection.id"
+              >
+                {{ connection.display_phone_number || connection.verified_name || connection.phone_number_id }}
+                <span
+                  v-if="!connection.webhook_subscribed"
+                  class="text-amber-700"
+                >
+                  (webhook pending)
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <p
+            v-if="whatsappError"
+            class="mt-4 text-sm text-rose-600"
+          >
+            {{ whatsappError }}
+          </p>
+
+          <button
+            v-if="!whatsappConnected"
+            type="button"
+            class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="whatsappLoading || whatsappConnectLoading"
+            @click="connectWhatsApp"
+          >
+            {{ whatsappConnectLoading ? 'Redirecting to Meta...' : 'connect for DM replies' }}
+          </button>
+
+          <button
+            v-else
+            type="button"
+            class="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-emerald-300 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="whatsappDisconnectLoading"
+            @click="disconnectWhatsApp"
+          >
+            {{ whatsappDisconnectLoading ? 'Disconnecting...' : 'Disconnect WhatsApp' }}
           </button>
         </article>
 
