@@ -6,6 +6,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const router = useRouter()
 const config = useRuntimeConfig()
 const session = useSupabaseSession()
 
@@ -29,6 +30,17 @@ interface WhatsAppConnection {
   updated_at: string
 }
 
+interface InstagramConnection {
+  id: string
+  page_id: string
+  page_name: string | null
+  instagram_business_account_id: string
+  instagram_username: string | null
+  webhook_subscribed: boolean
+  created_at: string
+  updated_at: string
+}
+
 const facebookLoading = ref(true)
 const facebookConnectLoading = ref(false)
 const facebookDisconnectLoading = ref(false)
@@ -45,9 +57,18 @@ const whatsappError = ref('')
 
 const whatsappConnected = computed(() => whatsappConnections.value.length > 0)
 
+const instagramLoading = ref(true)
+const instagramConnectTarget = ref<'comment' | 'dm' | null>(null)
+const instagramDisconnectLoading = ref(false)
+const instagramConnections = ref<InstagramConnection[]>([])
+const instagramError = ref('')
+
+const instagramConnected = computed(() => instagramConnections.value.length > 0)
+
 const facebookBanner = computed(() => {
   const status = route.query.facebook
   if (status === 'connected') {
+    if (!facebookConnected.value) return ''
     const pages = typeof route.query.pages === 'string' ? route.query.pages : ''
     return pages
       ? `Facebook connected successfully: ${pages}`
@@ -63,6 +84,7 @@ const facebookBanner = computed(() => {
 const whatsappBanner = computed(() => {
   const status = route.query.whatsapp
   if (status === 'connected') {
+    if (!whatsappConnected.value) return ''
     const numbers = typeof route.query.numbers === 'string' ? route.query.numbers : ''
     return numbers
       ? `WhatsApp connected successfully: ${numbers}`
@@ -74,6 +96,64 @@ const whatsappBanner = computed(() => {
   }
   return ''
 })
+
+const instagramBanner = computed(() => {
+  const status = route.query.instagram
+  if (status === 'connected') {
+    if (!instagramConnected.value) return ''
+    const accounts = typeof route.query.accounts === 'string' ? route.query.accounts : ''
+    return accounts
+      ? `Instagram connected successfully: ${accounts}`
+      : 'Instagram connected successfully.'
+  }
+  if (status === 'error') {
+    const message = typeof route.query.message === 'string' ? route.query.message : 'Connection failed.'
+    return `Instagram connection failed: ${message}`
+  }
+  return ''
+})
+
+function clearInstagramOAuthQuery() {
+  const query = { ...route.query }
+  delete query.instagram
+  delete query.accounts
+  if (route.query.instagram) {
+    delete query.message
+  }
+  router.replace({ path: route.path, query })
+}
+
+function clearFacebookOAuthQuery() {
+  const query = { ...route.query }
+  delete query.facebook
+  delete query.pages
+  if (route.query.facebook) {
+    delete query.message
+  }
+  router.replace({ path: route.path, query })
+}
+
+function clearWhatsAppOAuthQuery() {
+  const query = { ...route.query }
+  delete query.whatsapp
+  delete query.numbers
+  if (route.query.whatsapp) {
+    delete query.message
+  }
+  router.replace({ path: route.path, query })
+}
+
+function syncOAuthBannersWithConnectionState() {
+  if (route.query.instagram === 'connected' && !instagramConnected.value) {
+    clearInstagramOAuthQuery()
+  }
+  if (route.query.facebook === 'connected' && !facebookConnected.value) {
+    clearFacebookOAuthQuery()
+  }
+  if (route.query.whatsapp === 'connected' && !whatsappConnected.value) {
+    clearWhatsAppOAuthQuery()
+  }
+}
 
 async function loadFacebookStatus() {
   const accessToken = session.value?.access_token
@@ -154,6 +234,7 @@ async function disconnectFacebook() {
       },
     })
     facebookConnections.value = []
+    clearFacebookOAuthQuery()
   }
   catch (error) {
     facebookError.value =
@@ -161,6 +242,96 @@ async function disconnectFacebook() {
   }
   finally {
     facebookDisconnectLoading.value = false
+  }
+}
+
+async function loadInstagramStatus() {
+  const accessToken = session.value?.access_token
+  if (!accessToken) {
+    instagramConnections.value = []
+    instagramLoading.value = false
+    return
+  }
+
+  instagramLoading.value = true
+  instagramError.value = ''
+
+  try {
+    const response = await $fetch<{ connected: boolean, connections: InstagramConnection[] }>(
+      `${config.public.apiBaseUrl}/auth/instagram/status`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
+    instagramConnections.value = response.connections ?? []
+  }
+  catch (error) {
+    instagramError.value =
+      error instanceof Error ? error.message : 'Unable to load Instagram connection status.'
+    instagramConnections.value = []
+  }
+  finally {
+    instagramLoading.value = false
+  }
+}
+
+async function connectInstagram(target: 'comment' | 'dm') {
+  const accessToken = session.value?.access_token
+  if (!accessToken || instagramConnectTarget.value) return
+
+  instagramConnectTarget.value = target
+  instagramError.value = ''
+
+  try {
+    const response = await $fetch<{ url: string }>(
+      `${config.public.apiBaseUrl}/auth/instagram/connect`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
+    if (response.url) {
+      window.location.href = response.url
+      return
+    }
+    instagramError.value = 'Instagram connect URL was not returned.'
+  }
+  catch (error) {
+    instagramError.value =
+      error instanceof Error ? error.message : 'Unable to start Instagram connection.'
+  }
+  finally {
+    instagramConnectTarget.value = null
+  }
+}
+
+async function disconnectInstagram() {
+  const accessToken = session.value?.access_token
+  if (!accessToken || instagramDisconnectLoading.value) return
+
+  instagramDisconnectLoading.value = true
+  instagramError.value = ''
+
+  try {
+    await $fetch(`${config.public.apiBaseUrl}/auth/instagram/disconnect`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    instagramConnections.value = []
+    clearInstagramOAuthQuery()
+  }
+  catch (error) {
+    instagramError.value =
+      error instanceof Error ? error.message : 'Unable to disconnect Instagram.'
+  }
+  finally {
+    instagramDisconnectLoading.value = false
   }
 }
 
@@ -243,6 +414,7 @@ async function disconnectWhatsApp() {
       },
     })
     whatsappConnections.value = []
+    clearWhatsAppOAuthQuery()
   }
   catch (error) {
     whatsappError.value =
@@ -253,8 +425,9 @@ async function disconnectWhatsApp() {
   }
 }
 
-function loadConnectionStatuses() {
-  return Promise.all([loadFacebookStatus(), loadWhatsAppStatus()])
+async function loadConnectionStatuses() {
+  await Promise.all([loadFacebookStatus(), loadWhatsAppStatus(), loadInstagramStatus()])
+  syncOAuthBannersWithConnectionState()
 }
 
 onMounted(loadConnectionStatuses)
@@ -287,6 +460,13 @@ onMounted(loadConnectionStatuses)
         {{ whatsappBanner }}
       </p>
 
+      <p
+        v-if="instagramBanner"
+        class="mt-6 rounded-xl border border-edge bg-surface px-4 py-3 text-sm text-ink"
+      >
+        {{ instagramBanner }}
+      </p>
+
       <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <article
           class="group rounded-2xl border border-white/10 bg-white/70 p-6 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -297,6 +477,13 @@ onMounted(loadConnectionStatuses)
           <h2 class="text-xl font-semibold text-ink">
             Instagram Automation
           </h2>
+
+          <p
+            v-if="instagramError"
+            class="mt-4 text-sm text-rose-600"
+          >
+            {{ instagramError }}
+          </p>
 
           <div class="mt-5 space-y-4">
             <div class="rounded-xl bg-white/80 p-4">
@@ -309,9 +496,11 @@ onMounted(loadConnectionStatuses)
               </p>
               <button
                 type="button"
-                class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-ink px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
+                class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
+                :disabled="instagramLoading || instagramConnectTarget !== null"
+                @click="connectInstagram('comment')"
               >
-                connect for DM replies
+                {{ instagramConnectTarget === 'comment' ? 'Redirecting to Meta...' : 'connect for comment replies' }}
               </button>
             </div>
 
@@ -324,13 +513,48 @@ onMounted(loadConnectionStatuses)
                 questions.
               </p>
               <button
+                v-if="!instagramConnected"
                 type="button"
-                class="mt-4 inline-flex w-full items-center justify-center rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-ink hover:text-white"
+                class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
+                :disabled="instagramLoading || instagramConnectTarget !== null"
+                @click="connectInstagram('dm')"
               >
-                connect for comment replies
+                {{ instagramConnectTarget === 'dm' ? 'Redirecting to Meta...' : 'connect for DM replies' }}
               </button>
+              <div
+                v-else
+                class="mt-4 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3"
+              >
+                <p class="text-sm font-semibold text-pink-900">
+                  Connected
+                </p>
+                <ul class="mt-2 space-y-1 text-sm text-pink-800">
+                  <li
+                    v-for="connection in instagramConnections"
+                    :key="connection.id"
+                  >
+                    @{{ connection.instagram_username || connection.page_name || connection.instagram_business_account_id }}
+                    <span
+                      v-if="!connection.webhook_subscribed"
+                      class="text-amber-700"
+                    >
+                      (webhook pending)
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+
+          <button
+            v-if="instagramConnected"
+            type="button"
+            class="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-pink-300 bg-white px-4 py-2.5 text-sm font-medium text-pink-700 transition hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="instagramDisconnectLoading"
+            @click="disconnectInstagram"
+          >
+            {{ instagramDisconnectLoading ? 'Disconnecting...' : 'Disconnect Instagram' }}
+          </button>
         </article>
 
         <article
