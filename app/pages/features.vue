@@ -37,6 +37,7 @@ interface InstagramConnection {
   instagram_business_account_id: string
   instagram_username: string | null
   webhook_subscribed: boolean
+  comment_automation_enabled: boolean
   created_at: string
   updated_at: string
 }
@@ -58,12 +59,18 @@ const whatsappError = ref('')
 const whatsappConnected = computed(() => whatsappConnections.value.length > 0)
 
 const instagramLoading = ref(true)
-const instagramConnectTarget = ref<'comment' | 'dm' | null>(null)
+const instagramConnectLoading = ref(false)
 const instagramDisconnectLoading = ref(false)
+const instagramCommentToggleLoading = ref(false)
 const instagramConnections = ref<InstagramConnection[]>([])
 const instagramError = ref('')
 
 const instagramConnected = computed(() => instagramConnections.value.length > 0)
+
+const instagramCommentEnabled = computed(() =>
+  instagramConnected.value
+  && instagramConnections.value.every(connection => connection.comment_automation_enabled),
+)
 
 const facebookBanner = computed(() => {
   const status = route.query.facebook
@@ -277,11 +284,11 @@ async function loadInstagramStatus() {
   }
 }
 
-async function connectInstagram(target: 'comment' | 'dm') {
+async function connectInstagram() {
   const accessToken = session.value?.access_token
-  if (!accessToken || instagramConnectTarget.value) return
+  if (!accessToken || instagramConnectLoading.value) return
 
-  instagramConnectTarget.value = target
+  instagramConnectLoading.value = true
   instagramError.value = ''
 
   try {
@@ -305,7 +312,7 @@ async function connectInstagram(target: 'comment' | 'dm') {
       error instanceof Error ? error.message : 'Unable to start Instagram connection.'
   }
   finally {
-    instagramConnectTarget.value = null
+    instagramConnectLoading.value = false
   }
 }
 
@@ -332,6 +339,44 @@ async function disconnectInstagram() {
   }
   finally {
     instagramDisconnectLoading.value = false
+  }
+}
+
+async function toggleInstagramCommentAutomation() {
+  const accessToken = session.value?.access_token
+  if (!accessToken || instagramCommentToggleLoading.value || !instagramConnected.value) return
+
+  const enabled = !instagramCommentEnabled.value
+  const previous = instagramConnections.value
+  instagramCommentToggleLoading.value = true
+  instagramError.value = ''
+  instagramConnections.value = instagramConnections.value.map(connection => ({
+    ...connection,
+    comment_automation_enabled: enabled,
+  }))
+
+  try {
+    const response = await $fetch<{ connections: InstagramConnection[] }>(
+      `${config.public.apiBaseUrl}/auth/instagram/comment-automation`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: { enabled },
+      },
+    )
+    if (response.connections) {
+      instagramConnections.value = response.connections
+    }
+  }
+  catch (error) {
+    instagramConnections.value = previous
+    instagramError.value =
+      error instanceof Error ? error.message : 'Unable to update comment automation.'
+  }
+  finally {
+    instagramCommentToggleLoading.value = false
   }
 }
 
@@ -477,6 +522,81 @@ onMounted(loadConnectionStatuses)
           <h2 class="text-xl font-semibold text-ink">
             Instagram Automation
           </h2>
+          <p class="mt-4 text-sm leading-6 text-ink-muted">
+            Connect your Instagram account once to enable both automations below. They share the same
+            authentication and webhook.
+          </p>
+
+          <div class="mt-5 space-y-4">
+            <div class="rounded-xl bg-white/80 p-4">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-sm font-semibold text-ink">
+                  Feature 1: DM Question Flow
+                </h3>
+                <button
+                  v-if="instagramConnected"
+                  type="button"
+                  role="switch"
+                  :aria-checked="instagramCommentEnabled"
+                  :disabled="instagramCommentToggleLoading"
+                  class="relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition disabled:cursor-not-allowed disabled:opacity-60"
+                  :class="instagramCommentEnabled ? 'bg-pink-600' : 'bg-gray-300'"
+                  @click="toggleInstagramCommentAutomation"
+                >
+                  <span
+                    class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition"
+                    :class="instagramCommentEnabled ? 'translate-x-5' : 'translate-x-1'"
+                  />
+                </button>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-ink-muted">
+                When someone sends a DM to your Instagram account, this feature automatically asks several questions.
+              </p>
+              <p
+                v-if="instagramConnected"
+                class="mt-3 text-xs font-medium"
+                :class="instagramCommentEnabled ? 'text-pink-700' : 'text-ink-muted'"
+              >
+                {{ instagramCommentToggleLoading
+                  ? 'Updating...'
+                  : instagramCommentEnabled
+                    ? 'Comment automation is on'
+                    : 'Comment automation is off' }}
+              </p>
+            </div>
+
+            <div class="rounded-xl bg-white/80 p-4">
+              <h3 class="text-sm font-semibold text-ink">
+                Feature 2: Comment to DM
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-ink-muted">
+                When someone comments on your Instagram post, this feature automatically replies to the comment and sends a private DM.
+              </p>
+            </div>
+          </div>
+
+          <div
+            v-if="instagramConnected"
+            class="mt-4 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3"
+          >
+            <p class="text-sm font-semibold text-pink-900">
+              Connected
+            </p>
+            <ul class="mt-2 space-y-1 text-sm text-pink-800">
+              <li
+                v-for="connection in instagramConnections"
+                :key="connection.id"
+              >
+                @{{ connection.instagram_username || connection.page_name || connection.instagram_business_account_id }}
+                <span
+                  v-if="!connection.webhook_subscribed"
+                  class="text-amber-700"
+                >
+                  (webhook pending)
+                </span>
+              </li>
+            </ul>
+          </div>
 
           <p
             v-if="instagramError"
@@ -485,69 +605,18 @@ onMounted(loadConnectionStatuses)
             {{ instagramError }}
           </p>
 
-          <div class="mt-5 space-y-4">
-            <div class="rounded-xl bg-white/80 p-4">
-              <h3 class="text-sm font-semibold text-ink">
-                Feature 1: Comment to DM
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone comments on your Instagram post, this feature automatically replies to the comment
-                and sends a private DM.
-              </p>
-              <button
-                type="button"
-                class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
-                :disabled="instagramLoading || instagramConnectTarget !== null"
-                @click="connectInstagram('comment')"
-              >
-                {{ instagramConnectTarget === 'comment' ? 'Redirecting to Meta...' : 'connect for comment replies' }}
-              </button>
-            </div>
-
-            <div class="rounded-xl bg-white/80 p-4">
-              <h3 class="text-sm font-semibold text-ink">
-                Feature 2: DM Question Flow
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone sends a DM to your Instagram account, this feature automatically asks several
-                questions.
-              </p>
-              <button
-                v-if="!instagramConnected"
-                type="button"
-                class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
-                :disabled="instagramLoading || instagramConnectTarget !== null"
-                @click="connectInstagram('dm')"
-              >
-                {{ instagramConnectTarget === 'dm' ? 'Redirecting to Meta...' : 'connect for DM replies' }}
-              </button>
-              <div
-                v-else
-                class="mt-4 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3"
-              >
-                <p class="text-sm font-semibold text-pink-900">
-                  Connected
-                </p>
-                <ul class="mt-2 space-y-1 text-sm text-pink-800">
-                  <li
-                    v-for="connection in instagramConnections"
-                    :key="connection.id"
-                  >
-                    @{{ connection.instagram_username || connection.page_name || connection.instagram_business_account_id }}
-                    <span
-                      v-if="!connection.webhook_subscribed"
-                      class="text-amber-700"
-                    >
-                      (webhook pending)
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <button
+            v-if="!instagramConnected"
+            type="button"
+            class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="instagramLoading || instagramConnectLoading"
+            @click="connectInstagram"
+          >
+            {{ instagramConnectLoading ? 'Redirecting to Meta...' : 'Connect Instagram' }}
+          </button>
 
           <button
-            v-if="instagramConnected"
+            v-else
             type="button"
             class="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-pink-300 bg-white px-4 py-2.5 text-sm font-medium text-pink-700 transition hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-60"
             :disabled="instagramDisconnectLoading"
