@@ -529,9 +529,18 @@ onMounted(loadConnectionStatuses)
 
           <div class="mt-5 space-y-4">
             <div class="rounded-xl bg-white/80 p-4">
+              <h3 class="text-sm font-semibold text-ink">
+                Feature 1: DM Question Flow
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-ink-muted">
+                When someone sends a DM to your Instagram account, this feature automatically asks several questions.
+              </p>
+            </div>
+
+            <div class="rounded-xl bg-white/80 p-4">
               <div class="flex items-start justify-between gap-3">
                 <h3 class="text-sm font-semibold text-ink">
-                  Feature 1: DM Question Flow
+                  Feature 2: Comment to DM
                 </h3>
                 <button
                   v-if="instagramConnected"
@@ -550,7 +559,7 @@ onMounted(loadConnectionStatuses)
                 </button>
               </div>
               <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone sends a DM to your Instagram account, this feature automatically asks several questions.
+                When someone comments on your Instagram post, this feature automatically replies to the comment and sends a private DM.
               </p>
               <p
                 v-if="instagramConnected"
@@ -562,15 +571,6 @@ onMounted(loadConnectionStatuses)
                   : instagramCommentEnabled
                     ? 'Comment automation is on'
                     : 'Comment automation is off' }}
-              </p>
-            </div>
-
-            <div class="rounded-xl bg-white/80 p-4">
-              <h3 class="text-sm font-semibold text-ink">
-                Feature 2: Comment to DM
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone comments on your Instagram post, this feature automatically replies to the comment and sends a private DM.
               </p>
             </div>
           </div>
