@@ -533,6 +533,16 @@ onMounted(loadConnectionStatuses)
                 <h3 class="text-sm font-semibold text-ink">
                   Feature 1: DM Question Flow
                 </h3>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-ink-muted">
+                When someone sends a DM to your Instagram account, this feature automatically asks several questions.
+              </p>
+            </div>
+
+            <div class="rounded-xl bg-white/80 p-4">
+              <h3 class="text-sm font-semibold text-ink">
+                Feature 2: Comment to DM
+              </h3>
                 <button
                   v-if="instagramConnected"
                   type="button"
@@ -548,9 +558,8 @@ onMounted(loadConnectionStatuses)
                     :class="instagramCommentEnabled ? 'translate-x-5' : 'translate-x-1'"
                   />
                 </button>
-              </div>
               <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone sends a DM to your Instagram account, this feature automatically asks several questions.
+                When someone comments on your Instagram post, this feature automatically replies to the comment and sends a private DM.
               </p>
               <p
                 v-if="instagramConnected"
@@ -564,17 +573,7 @@ onMounted(loadConnectionStatuses)
                     : 'Comment automation is off' }}
               </p>
             </div>
-
-            <div class="rounded-xl bg-white/80 p-4">
-              <h3 class="text-sm font-semibold text-ink">
-                Feature 2: Comment to DM
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-ink-muted">
-                When someone comments on your Instagram post, this feature automatically replies to the comment and sends a private DM.
-              </p>
-            </div>
           </div>
-
           <div
             v-if="instagramConnected"
             class="mt-4 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3"
